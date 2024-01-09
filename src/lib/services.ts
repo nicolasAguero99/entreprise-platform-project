@@ -3,7 +3,7 @@
 import { API_URL, PAGINATION_SLICE_NUMBER } from '@/constants/constants'
 
 // Types
-import { type MembersAndPagination, type MembersDb, type PaginationPages } from '@/types/types'
+import { type MembersAndPagination, type MembersDb, type PaginationPages, OrderTypes } from '@/types/types.d'
 
 export async function addMember (e: React.FormEvent<HTMLFormElement>): Promise<void> {
   e.preventDefault()
@@ -24,17 +24,44 @@ export const getMembers = async (): Promise<MembersDb[]> => {
   return data
 }
 
+export const getMembersByName = async (searchValue: string): Promise<MembersDb[]> => {
+  const data = await getMembers()
+  const dataFiltered = data.filter((member) => removeAccents(member.name.toLocaleLowerCase()).includes(removeAccents(searchValue.toLocaleLowerCase())))
+  return dataFiltered
+}
+
 export const getPagesPagination = (data: MembersDb[]): PaginationPages => {
   const paginationLength = Math.ceil(data.length / PAGINATION_SLICE_NUMBER)
   const paginationPages = Array.from(Array(paginationLength).keys())
   return paginationPages
 }
 
-export const getMembersAndPages = async (currentPage: number): Promise<MembersAndPagination> => {
+export const getDataSorted = async (orderBy: string): Promise<MembersDb[] | []> => {
+  const { DATE_ORDER } = OrderTypes
   const data = await getMembers()
+  let dataSorted: MembersDb[] | [] = []
+  if (orderBy === DATE_ORDER) {
+    dataSorted = data.sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime()
+      const dateB = new Date(b.createdAt).getTime()
+      return dateB - dateA
+    })
+  }
+  return dataSorted
+}
+
+export const getMembersAndPages = async (searchValue: string, currentPage: number): Promise<MembersAndPagination> => {
+  // const data = await getMembers()
+  const data = await getMembersByName(searchValue)
   const start = currentPage > 1 ? currentPage * PAGINATION_SLICE_NUMBER - PAGINATION_SLICE_NUMBER : 0
   const end = start + PAGINATION_SLICE_NUMBER
   const dataSliced = data.slice(start, end)
   const paginationPages = getPagesPagination(data)
-  return { data: dataSliced, paginationPages }
+  const prev = currentPage > 1 ? currentPage - 1 : 1
+  const next = currentPage < paginationPages.length ? currentPage + 1 : paginationPages.length
+  return { data: dataSliced, paginationPages, prev, next }
+}
+
+export const removeAccents = (str: string): string => {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 }

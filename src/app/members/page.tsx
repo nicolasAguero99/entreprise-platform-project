@@ -1,77 +1,67 @@
 import Link from 'next/link'
 
 // Types
-import { type MembersDb, type SearchParams, type MembersAndPagination } from '@/types/types'
+import { type SearchParams, type MembersAndPagination } from '@/types/types'
 
 // Components
-import DeleteBtn from '@/components/delete-btn'
-import EditBtn from '@/components/edit-btn'
+import InputSearchMember from '@/components/input-search-member'
+import Pagination from '@/components/pagination'
+import OrderBy from '@/components/order-by-member'
 
 // Services
-import { getMembersAndPages } from '@/lib/services'
+import { getDataSorted, getMembersAndPages } from '@/lib/services'
 
 export default async function MembersPage ({ searchParams }: { searchParams: SearchParams }): Promise<JSX.Element> {
   const { page } = searchParams
-  const { data, paginationPages }: MembersAndPagination = await getMembersAndPages(Number(page))
+  const { search } = searchParams
+  const { order } = searchParams
+  const searchValue = search ?? ''
+  const { data, paginationPages, prev, next }: MembersAndPagination = await getMembersAndPages(searchValue, Number(page))
+  const dataSorted = await getDataSorted(order)
+
+  console.log('dataSorted', dataSorted)
+
   return (
     <main className="flex flex-col flex-1 px-8 py-4">
       <h1 className="text-3xl font-semibold">Members</h1>
       <section className="py-4">
-        <Link href='members/add'>+ Agregar</Link>
-        <ul className="flex flex-col divide-y-[1px] divide-gray-300">
-          {
-            data.map(({ id, name, email, createdAt }: MembersDb) => {
-              const [memberCreatedAt] = new Date(createdAt).toISOString().split('T')
-              return (
-                <li key={id} className="flex text-center items-center gap-4 py-2">
-                  <small className="w-8 text-lg font-medium">{id}</small>
-                  <span className="w-28 flex-1 text-lg font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">{name}</span>
-                  <span className="w-28 flex-1 text-lg font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">{email}</span>
-                  <span className="w-28 flex-1 text-lg font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">{memberCreatedAt}</span>
-                  <div className='flex items-center gap-2'>
-                    <EditBtn memberId={id} />
-                    <DeleteBtn memberId={id} />
-                  </div>
-                </li>
-              )
-            })
-          }
-        </ul>
-        <nav className='mt-4'>
-          <ul className="flex items-center justify-center -space-x-px h-8 text-sm">
-            {/* <li>
-              <Link href="?page=1" className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-PAGINATION_SLICE_NUMBER00 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                <span className="sr-only">Previous</span>
-                <svg className="w-2.PAGINATION_SLICE_NUMBER h-2.PAGINATION_SLICE_NUMBER rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="MPAGINATION_SLICE_NUMBER 1 1 PAGINATION_SLICE_NUMBERl4 4"/>
-                </svg>
-              </Link>
-            </li> */}
-            {
-              paginationPages.map((item) => {
-                const page = item + 1
-                const xd = page === Number(searchParams.page)
-                console.log('page === Number(searchParams.page)', xd)
-                return (
-                  <li key={page}>
-                    <Link href={`?page=${page}`} className={`flex items-center justify-center mx-1 px-3 h-8 leading-tight border border-gray-300 rounded-lg hover:bg-gray-300 hover:text-gray-700 ${page === Number(searchParams.page) ? 'text-gray-700 bg-gray-100' : 'bg-gray-700 text-gray-100'}`}>
-                      <span className="sr-only">{page}</span>
-                      {page}
-                    </Link>
+        <div className='flex items-center gap-4'>
+          <form className='flex-1'>
+            <div className="flex">
+              <label htmlFor="search-dropdown" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your Email</label>
+              <button id="dropdown-button" data-dropdown-toggle="dropdown" className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">All categories <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/></svg></button>
+              <div id="dropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
+                  <li>
+                    <button type="button" className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mockups</button>
                   </li>
-                )
-              })
-            }
-            {/* <li>
-              <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-PAGINATION_SLICE_NUMBER00 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                <span className="sr-only">Next</span>
-                <svg className="w-2.PAGINATION_SLICE_NUMBER h-2.PAGINATION_SLICE_NUMBER rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
-                </svg>
-              </a>
-            </li> */}
-          </ul>
-        </nav>
+                  <li>
+                    <button type="button" className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Templates</button>
+                  </li>
+                  <li>
+                    <button type="button" className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Design</button>
+                  </li>
+                  <li>
+                    <button type="button" className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logos</button>
+                  </li>
+                </ul>
+              </div>
+              <div className="relative w-full">
+                <InputSearchMember />
+                <button type="submit" className="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  <svg className="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                  </svg>
+                  <span className="sr-only">Search</span>
+                </button>
+              </div>
+            </div>
+          </form>
+          <Link href='members/add' className='bg-slate-800 text-white rounded-lg px-4 py-2'>+ Agregar</Link>
+        </div>
+        <OrderBy />
+        <Pagination data={data} paginationPages={paginationPages} prev={prev} next={next} page={page} search={searchValue} />
       </section>
     </main>
   )

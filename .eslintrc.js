@@ -33,7 +33,7 @@ module.exports = {
   rules: {
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    // missing type 
+    "react-hooks/exhaustive-deps": "off",
     "no-undef": "off",
   }
 }
