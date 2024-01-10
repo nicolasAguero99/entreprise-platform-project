@@ -1,13 +1,18 @@
 export interface MembersDb {
   id: number
+  photo: string
   name: string
   email: string
+  position: string
+  salary: number
+  paid: boolean
   createdAt: Date
 }
 
 export interface SearchParams {
   page: string
   search: string
+  order: OrderTypes | string
 }
 
 export type PaginationPages = number[]
@@ -20,7 +25,6 @@ export interface MembersAndPagination {
 }
 
 export interface MembersAndPaginationProps {
-  data: MembersDb[]
   paginationPages: PaginationPages
   prev: number
   next: number

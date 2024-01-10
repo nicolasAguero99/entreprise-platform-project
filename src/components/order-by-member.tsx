@@ -1,28 +1,25 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 // Types
-import { type MembersDb, ActionTypes, type MembersAndPaginationProps } from '@/types/types.d'
+import { OrderTypes } from '@/types/types.d'
 
-// Components
-import DeleteBtn from '@/components/delete-btn'
-import EditBtn from '@/components/edit-btn'
-import { useEffect } from 'react'
+// Utils
+import { createQueryParams } from '@/lib/utils'
 
 export default function OrderBy (): JSX.Element {
   const router = useRouter()
-  const handleOrderBy = (action: string): void => {
-    const currentSearch = window.location.search
-    if (currentSearch.includes('order')) return
-    currentSearch === ''
-      ? router.push('?order=date')
-      : router.push(`${currentSearch}&order=date`)
+  const searchParams = useSearchParams()
+
+  const handleOrderBy = (action: OrderTypes): void => {
+    router.push(`?${createQueryParams(searchParams, 'order', action)}`)
   }
 
   return (
-    <>
-      <button onClick={handleOrderBy} className='bg-slate-500 text-white rounded-lg px-4 py-2'>Filter</button>
-    </>
+    <div className='flex gap-4'>
+      <button onClick={() => { handleOrderBy(OrderTypes.DATE_ORDER) }} className='bg-slate-500 text-white rounded-lg px-4 py-2'>Date</button>
+      <button onClick={() => { handleOrderBy(OrderTypes.NAME_ORDER) }} className='bg-slate-500 text-white rounded-lg px-4 py-2'>Name</button>
+    </div>
   )
 }

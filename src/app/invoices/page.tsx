@@ -7,7 +7,7 @@ import { type SearchParams, type MembersAndPagination, type OrderTypes } from '@
 import InputSearchMember from '@/components/input-search-member'
 import Pagination from '@/components/pagination'
 import OrderBy from '@/components/order-by-member'
-import MembersTable from '@/components/members-table'
+import InvoicesTable from './invoices-table'
 
 // Services
 import { getMembersAndPages } from '@/lib/services'
@@ -16,6 +16,9 @@ export default async function MembersPage ({ searchParams }: { searchParams: Sea
   const { page } = searchParams
   const { search } = searchParams
   const { order } = searchParams
+
+  console.log('searchParams', searchParams)
+
   const orderValue = order ?? ''
   const searchValue: OrderTypes | string = search ?? ''
   const { data, paginationPages, prev, next }: MembersAndPagination = await getMembersAndPages(searchValue, Number(page), orderValue)
@@ -60,7 +63,7 @@ export default async function MembersPage ({ searchParams }: { searchParams: Sea
           <Link href='members/add' className='bg-slate-800 text-white rounded-lg px-4 py-2'>+ Agregar</Link>
         </div>
         <OrderBy />
-        <MembersTable data={data} />
+        <InvoicesTable data={data} />
         <Pagination paginationPages={paginationPages} prev={prev} next={next} page={page} search={searchValue} />
       </section>
     </main>

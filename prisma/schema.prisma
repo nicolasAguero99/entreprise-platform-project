@@ -12,7 +12,31 @@ datasource db {
 
 model Members {
   id Int @id @default(autoincrement())
+  photo String
   name String
   email String @unique
-  createdAt DateTime @default(now())  
+  salary Int @default(0)
+  position String @default("member")
+  paid Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Investors {
+  id Int @id @default(autoincrement())
+  photo String
+  name String
+  createdAt DateTime @default(now())
+
+  investorsHistory InvestorsHistory[]
+}
+
+model InvestorsHistory {
+  id Int @id @default(autoincrement())
+  investorId Int 
+  investor Investors @relation(fields: [investorId], references: [id])
+  amount Int @default(0)
+  investedIn DateTime @default(now())
+  createdAt DateTime @default(now())
+  
+  @@index([investorId], name: "investorId")
 }

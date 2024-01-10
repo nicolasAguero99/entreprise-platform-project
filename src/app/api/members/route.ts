@@ -12,12 +12,18 @@ export async function GET (): Promise<NextResponse> {
 
 export async function POST (req: any): Promise<NextResponse<unknown>> {
   const rawData = await req.json()
+
+  console.log('rawData', rawData)
+
   try {
     const data = memberSchema.parse(rawData)
+    console.log('data', data)
     const createdMember = await prisma.members.create({ data })
     revalidatePath('/members')
     return NextResponse.json(createdMember)
   } catch (error) {
+    console.log('error', error)
+
     return NextResponse.json(error)
   }
 }

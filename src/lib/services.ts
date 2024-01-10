@@ -15,7 +15,6 @@ export async function addMember (e: React.FormEvent<HTMLFormElement>): Promise<v
       'Content-Type': 'application/json'
     }
   })
-  console.log('data', data)
 }
 
 export const getMembers = async (): Promise<MembersDb[]> => {
@@ -36,9 +35,11 @@ export const getPagesPagination = (data: MembersDb[]): PaginationPages => {
   return paginationPages
 }
 
-export const getDataSorted = async (orderBy: string): Promise<MembersDb[] | []> => {
-  const { DATE_ORDER } = OrderTypes
-  const data = await getMembers()
+export const getDataSorted = async (data: MembersDb[], orderBy: string): Promise<MembersDb[] | []> => {
+  console.log('orderBy', orderBy)
+
+  const { DATE_ORDER, NAME_ORDER } = OrderTypes
+  // const data = await getMembers()
   let dataSorted: MembersDb[] | [] = []
   if (orderBy === DATE_ORDER) {
     dataSorted = data.sort((a, b) => {
@@ -46,16 +47,25 @@ export const getDataSorted = async (orderBy: string): Promise<MembersDb[] | []> 
       const dateB = new Date(b.createdAt).getTime()
       return dateB - dateA
     })
+  } else if (orderBy === NAME_ORDER) {
+    dataSorted = data.sort((a, b) => {
+      const nameA = a.name.toLowerCase()
+      const nameB = b.name.toLowerCase()
+      return nameA.localeCompare(nameB)
+    })
+  } else {
+    dataSorted = data
   }
   return dataSorted
 }
 
-export const getMembersAndPages = async (searchValue: string, currentPage: number): Promise<MembersAndPagination> => {
+export const getMembersAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<MembersAndPagination> => {
   // const data = await getMembers()
   const data = await getMembersByName(searchValue)
+  const dataSorted = await getDataSorted(data, orderBy)
   const start = currentPage > 1 ? currentPage * PAGINATION_SLICE_NUMBER - PAGINATION_SLICE_NUMBER : 0
   const end = start + PAGINATION_SLICE_NUMBER
-  const dataSliced = data.slice(start, end)
+  const dataSliced = dataSorted.slice(start, end)
   const paginationPages = getPagesPagination(data)
   const prev = currentPage > 1 ? currentPage - 1 : 1
   const next = currentPage < paginationPages.length ? currentPage + 1 : paginationPages.length
