@@ -3,20 +3,22 @@ import { NextResponse } from 'next/server'
 // Lib
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
-import { memberSchema } from '@/lib/zodSchema'
+import { investorsHistorySchema } from '@/lib/zodSchema'
+
+// import { investorsHistoryObj } from '@/lib/mocks'
 
 export async function GET (): Promise<NextResponse> {
-  const data = await prisma.members.findMany()
+  const data = await prisma.investorsHistory.findMany()
   return NextResponse.json(data)
 }
 
 export async function POST (req: any): Promise<NextResponse<unknown>> {
   const rawData = await req.json()
   try {
-    const data = memberSchema.parse(rawData)
+    const data = investorsHistorySchema.parse(rawData)
     console.log('data', data)
-    const createdMember = await prisma.members.create({ data })
-    revalidatePath('/members')
+    const createdMember = await prisma.investorsHistory.create({ data })
+    revalidatePath('/investors')
     return NextResponse.json(createdMember)
   } catch (error) {
     console.log('error', error)
@@ -26,9 +28,9 @@ export async function POST (req: any): Promise<NextResponse<unknown>> {
 }
 
 // export async function POST (req: any): Promise<NextResponse<unknown>> {
-//   objetos.map(async (data) => {
+//   investorsHistoryObj.map(async (data) => {
 //     try {
-//       const createdMember = await prisma.members.create({ data })
+//       const createdMember = await prisma.investorsHistory.create({ data })
 //       return NextResponse.json(createdMember)
 //     } catch (error) {
 //       console.log('error', error)

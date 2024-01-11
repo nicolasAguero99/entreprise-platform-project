@@ -9,6 +9,25 @@ export interface MembersDb {
   createdAt: Date
 }
 
+export interface InvestorsDb {
+  id: number
+  photo: string
+  name: string
+  createdAt: Date
+  investorsHistory: InvestorsHistoryDb[]
+}
+
+export interface InvestorsHistoryDb {
+  id: number
+  photo: string
+  name: string
+  createdAt: Date
+  investorId: number
+  amount: number
+  investedIn: Date
+  createdAt: Date
+}
+
 export interface SearchParams {
   page: string
   search: string

@@ -10,6 +10,10 @@ export const SIDEBAR_LINKS = [
     path: '/invoices'
   },
   {
+    name: 'Investors',
+    path: '/investors'
+  },
+  {
     name: 'Members',
     path: '/members'
   }

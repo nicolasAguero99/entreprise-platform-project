@@ -3,7 +3,7 @@
 import { API_URL, PAGINATION_SLICE_NUMBER } from '@/constants/constants'
 
 // Types
-import { type MembersAndPagination, type MembersDb, type PaginationPages, OrderTypes } from '@/types/types.d'
+import { type MembersAndPagination, type MembersDb, type PaginationPages, OrderTypes, type InvestorsDb, type InvestorsHistoryDb } from '@/types/types.d'
 
 export async function addMember (e: React.FormEvent<HTMLFormElement>): Promise<void> {
   e.preventDefault()
@@ -20,6 +20,24 @@ export async function addMember (e: React.FormEvent<HTMLFormElement>): Promise<v
 export const getMembers = async (): Promise<MembersDb[]> => {
   const res = await fetch(`${API_URL}/members`, { cache: 'no-cache' })
   const data: MembersDb[] = await res.json()
+  return data
+}
+
+export const getInvestors = async (): Promise<InvestorsDb[]> => {
+  const res = await fetch(`${API_URL}/investors`, { cache: 'no-cache' })
+  const data: InvestorsDb[] = await res.json()
+  return data
+}
+
+export const getInvestorsHistory = async (): Promise<InvestorsHistoryDb[]> => {
+  const res = await fetch(`${API_URL}/investors/history`, { cache: 'no-cache' })
+  const data: InvestorsHistoryDb[] = await res.json()
+  return data
+}
+
+export const getInvestorsWithHistory = async (): Promise<InvestorsHistoryDb[]> => {
+  const res = await fetch(`${API_URL}/investors/history`, { cache: 'no-cache' })
+  const data: InvestorsHistoryDb[] = await res.json()
   return data
 }
 
