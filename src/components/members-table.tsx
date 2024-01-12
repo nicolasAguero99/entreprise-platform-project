@@ -7,7 +7,7 @@ import EditBtn from '@/components/edit-btn'
 // Types
 import { type MembersDb } from '@/types/types'
 
-export default function MembersTable ({ data }: { data: MembersDb[] }): JSX.Element {
+export default function MembersTable ({ data }: { data: MembersDb[] | any }): JSX.Element {
   return (
     <ul className="flex flex-col divide-y-[1px] divide-gray-300 py-4">
       {

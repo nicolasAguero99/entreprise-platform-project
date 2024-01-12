@@ -1,27 +1,27 @@
 import Link from 'next/link'
 
 // Types
-import { type SearchParams, type InvestorsDb, type InvestorsHistoryDb,type OrderTypes } from '@/types/types.d'
+import { type SearchParams, type InvestorsAndPagination, type OrderTypes } from '@/types/types.d'
 
 // Components
 import InputSearchMember from '@/components/input-search-member'
 import Pagination from '@/components/pagination'
 import OrderBy from '@/components/order-by-member'
 import InvestorsTable from './investors-table'
+import SelectDate from './select-date'
 
 // Services
-import { getInvestors } from '@/lib/services'
+import { getInvestorsAndPages } from '@/lib/services'
 
 export default async function MembersPage ({ searchParams }: { searchParams: SearchParams }): Promise<JSX.Element> {
   const { page } = searchParams
   const { search } = searchParams
   const { order } = searchParams
-
-  console.log('searchParams', searchParams)
+  const { month } = searchParams
 
   const orderValue = order ?? ''
   const searchValue: OrderTypes | string = search ?? ''
-  const data: InvestorsDb[] = await getInvestors()
+  const { data, paginationPages, prev, next }: InvestorsAndPagination = await getInvestorsAndPages(searchValue, Number(page), orderValue)
 
   return (
     <main className="flex flex-col flex-1 px-8 py-4">
@@ -63,8 +63,9 @@ export default async function MembersPage ({ searchParams }: { searchParams: Sea
           <Link href='members/add' className='bg-slate-800 text-white rounded-lg px-4 py-2'>+ Agregar</Link>
         </div>
         <OrderBy />
-        <InvestorsTable data={data} />
-        {/* <Pagination paginationPages={paginationPages} prev={prev} next={next} page={page} search={searchValue} /> */}
+        <SelectDate currentMonth={month} />
+        <InvestorsTable data={data} month={month} />
+        <Pagination paginationPages={paginationPages} prev={prev} next={next} page={page} search={searchValue} />
       </section>
     </main>
   )
