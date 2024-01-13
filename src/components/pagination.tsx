@@ -15,7 +15,7 @@ export default function Pagination ({ paginationPages, prev, next, page, search 
   const { PREV_ACTION, NEXT_ACTION, PAGE_ACTION } = ActionTypes
 
   useEffect(() => {
-    Number(page) > paginationPages.length && router.push(`?${createQueryParams(searchParams, 'search', search)}`)
+    Number(page) > paginationPages.length && router.push(`?${createQueryParams(searchParams, 'page', '1')}`)
   }, [search])
 
   const handleGoPage = (action: string, pageNumber?: number): void => {
