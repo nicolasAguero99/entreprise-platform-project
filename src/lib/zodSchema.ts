@@ -14,13 +14,15 @@ export const memberSchema = z.object({
   email: z.string().email(),
   position: z.string(),
   salary: z.number().int(),
-  paid: z.boolean()
+  paid: z.boolean().optional()
 })
 
 export const investorsSchema = z.object({
   photo: z.string(),
   name: z.string(),
-  createdAt: z.date()
+  amount: z.number(),
+  investedIn: z.string()
+  // investorId: z.number().optional()
 })
 
 export const investorsHistorySchema = z.object({

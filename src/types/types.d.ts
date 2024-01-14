@@ -70,4 +70,9 @@ export enum OrderTypes {
   NAME_ORDER = 'name'
 }
 
+export enum TypeToAction {
+  MEMBERS = 'members',
+  INVESTORS = 'investors'
+}
+
 export type Months = null | '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08' | '09' | '10' | '11' | '12'

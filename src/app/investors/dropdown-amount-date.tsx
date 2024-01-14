@@ -9,7 +9,7 @@ export default function DropdownAmountDate ({ amountByDate }: { amountByDate: Ar
   }
 
   return (
-    <td onClick={handleToggleDropdown} scope="row" className={`${amountByDate.length > 1 ? 'cursor-pointer' : ''} relative flex justify-between px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}>
+    <td onClick={handleToggleDropdown} scope="row" className={`${amountByDate.length > 1 ? 'cursor-pointer' : ''} relative px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}>
       <span className='flex gap-2 items-center'>
         {
           amountByDate.length > 1
@@ -29,13 +29,11 @@ export default function DropdownAmountDate ({ amountByDate }: { amountByDate: Ar
           <div className={`${!showDropdown ? 'hidden' : ''} absolute w-full top-12 -left-6 bg-slate-700 shadow-lg rounded-lg z-20`}>
             <ul className='divide-y divide-gray-600 text-center'>
               {
-                // investedInDate.map((date: string) => (
-                  amountByDate.map((item, index: number) => (
-                    <li key={index} className='py-4 font-medium'>
-                      <span>{item.investedIn}</span> - (<span className={`${Number(item.amount) > 0 ? 'dark:text-green-400' : Number(item.amount) < 0 ? 'dark:text-red-500' : 'dark:text-yellow-500'}`}>{Number(item.amount) > 0 ? `+${item.amount}` : item.amount}</span>)
-                    </li>
-                  ))
-                // ))
+                amountByDate.map((item, index: number) => (
+                  <li key={index} className='py-4 font-medium'>
+                    (<span className={`${Number(item.amount) > 0 ? 'dark:text-green-400' : Number(item.amount) < 0 ? 'dark:text-red-500' : 'dark:text-yellow-500'}`}>{Number(item.amount) > 0 ? `+${item.amount}` : item.amount}</span>) - <span>{item.investedIn}</span>
+                  </li>
+                ))
               }
             </ul>
           </div>

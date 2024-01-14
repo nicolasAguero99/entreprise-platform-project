@@ -25,7 +25,7 @@ export default async function MembersPage ({ searchParams }: { searchParams: Sea
 
   return (
     <main className="flex flex-col flex-1 px-8 py-4">
-      <h1 className="text-3xl font-semibold">Members</h1>
+      <h1 className="text-3xl font-semibold">Investors</h1>
       <section className="py-4">
         <div className='flex items-center gap-4'>
           <form className='flex-1'>
@@ -41,7 +41,7 @@ export default async function MembersPage ({ searchParams }: { searchParams: Sea
               </div>
             </div>
           </form>
-          <Link href='members/add' className='bg-slate-800 text-white rounded-lg px-4 py-2'>+ Agregar</Link>
+          <Link href='investors/add' className='bg-slate-800 text-white rounded-lg px-4 py-2'>+ Agregar</Link>
         </div>
         <OrderBy />
         <SelectDate currentMonth={month} />

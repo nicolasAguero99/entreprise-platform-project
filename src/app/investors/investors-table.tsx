@@ -1,8 +1,10 @@
 // Types
-import { type InvestorsDb, type Months } from '@/types/types'
+import { type InvestorsDb, type Months, TypeToAction } from '@/types/types.d'
 
 // Components
 import DropdownAmountDate from './dropdown-amount-date'
+import EditBtn from '@/components/edit-btn'
+import DeleteBtn from '@/components/delete-btn'
 
 export default function InvestorsTable ({ data, month }: { data: InvestorsDb[] | any, month: Months }): JSX.Element {
   return (
@@ -21,6 +23,9 @@ export default function InvestorsTable ({ data, month }: { data: InvestorsDb[] |
           </th>
           <th scope="col" className="px-6 py-3">
             Invested in
+          </th>
+          <th scope="col" className="px-6 py-3">
+            Actions
           </th>
         </tr>
       </thead>
@@ -51,6 +56,10 @@ export default function InvestorsTable ({ data, month }: { data: InvestorsDb[] |
                   {amountValue}
                 </td>
                 <DropdownAmountDate amountByDate={amountByDate} />
+                <td scope="row" className='flex gap-2 items-center justify-end pe-4'>
+                  <EditBtn id={id} typeToEdit={TypeToAction.INVESTORS} />
+                  <DeleteBtn id={id} typeToDelete={TypeToAction.INVESTORS} />
+                </td>
               </tr>
             )
           })

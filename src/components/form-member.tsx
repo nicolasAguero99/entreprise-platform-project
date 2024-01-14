@@ -11,7 +11,7 @@ import { type MembersDb } from '@/types/types'
 
 export default function FormMember ({ memberId = null }: { memberId?: string | null }): JSX.Element {
   const [isSending, setIsSending] = useState('')
-  const [member, setMember] = useState({ photo: '', name: '', email: '', position: '', salary: 0, paid: false })
+  const [member, setMember] = useState({ photo: '', name: '', email: '', position: '', salary: 0 })
   const router = useRouter()
   const textBtn = memberId === null ? 'Add' : 'Edit'
 
@@ -32,18 +32,11 @@ export default function FormMember ({ memberId = null }: { memberId?: string | n
   }, [member])
 
   const handleChangeValues = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value, type, checked } = e.target
-    if (type === 'checkbox') {
-      setMember({
-        ...member,
-        [name]: checked
-      })
-    } else {
-      setMember({
-        ...member,
-        [name]: value
-      })
-    }
+    const { name, value } = e.target
+    setMember({
+      ...member,
+      [name]: value
+    })
   }
 
   const handleMember = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {

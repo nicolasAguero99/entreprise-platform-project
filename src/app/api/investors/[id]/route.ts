@@ -3,11 +3,11 @@ import { NextResponse } from 'next/server'
 
 // Lib
 import { prisma } from '@/lib/prisma'
-import { memberSchema } from '@/lib/zodSchema'
+import { investorsSchema } from '@/lib/zodSchema'
 
 export async function GET (req: any, { params }: { params: { id: string } }): Promise<NextResponse> {
   const { id } = params
-  const data = await prisma.members.findUnique({ where: { id: Number(id) } })
+  const data = await prisma.investors.findUnique({ where: { id: Number(id) } })
   return NextResponse.json(data)
 }
 
@@ -15,10 +15,10 @@ export async function PUT (req: any, { params }: any): Promise<NextResponse> {
   const { id } = await params
   try {
     const rawData = await req.json()
-    const data = memberSchema.parse(rawData)
+    const data = investorsSchema.parse(rawData)
     console.log('data', data)
-    const updatedMember = await prisma.members.update({ where: { id: Number(id) }, data })
-    return NextResponse.json(updatedMember)
+    const updatedInvestor = await prisma.investors.update({ where: { id: Number(id) }, data })
+    return NextResponse.json(updatedInvestor)
   } catch (error) {
     console.log('error', error)
     return NextResponse.json(error)
@@ -27,6 +27,6 @@ export async function PUT (req: any, { params }: any): Promise<NextResponse> {
 
 export async function DELETE (req: any, { params }: any): Promise<NextResponse> {
   const { id } = await params
-  const deletedMember = await prisma.members.delete({ where: { id: Number(id) } })
-  return NextResponse.json(deletedMember)
+  const deletedInvestor = await prisma.investors.delete({ where: { id: Number(id) } })
+  return NextResponse.json(deletedInvestor)
 }

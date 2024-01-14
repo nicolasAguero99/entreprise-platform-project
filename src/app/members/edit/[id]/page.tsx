@@ -1,6 +1,6 @@
 import FormMember from '@/components/form-member'
 
-export default async function MembersPage ({ params }: { params: { id: string } }): Promise<JSX.Element> {
+export default function MembersPage ({ params }: { params: { id: string } }): JSX.Element {
   console.log('params', params)
   const { id } = params
 

@@ -8,13 +8,16 @@ import { API_URL } from '@/constants/constants'
 // Components
 import Loader from './loader'
 
-export default function DeleteBtn ({ memberId }: { memberId: number }): JSX.Element {
+// Types
+import { type TypeToAction } from '@/types/types'
+
+export default function DeleteBtn ({ id, typeToDelete }: { id: number, typeToDelete: TypeToAction }): JSX.Element {
   const router = useRouter()
   const [isDeleting, setIsDeleting] = useState(false)
 
-  const handleDeleteMember = async (): Promise<void> => {
+  const handleDelete = async (): Promise<void> => {
     setIsDeleting(true)
-    const res = await fetch(`${API_URL}/members/${memberId}`, {
+    const res = await fetch(`${API_URL}/${typeToDelete}/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -30,7 +33,7 @@ export default function DeleteBtn ({ memberId }: { memberId: number }): JSX.Elem
   }
 
   return (
-    <button onClick={() => { void handleDeleteMember() }} className={`size-8 ${!isDeleting ? 'bg-red-500' : 'bg-red-300'} rounded-full flex items-center justify-center`}>
+    <button onClick={() => { void handleDelete() }} className={`size-8 ${!isDeleting ? 'bg-red-500' : 'bg-red-300'} rounded-full flex items-center justify-center`}>
       {
         !isDeleting
           ? <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor">

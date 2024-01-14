@@ -50,7 +50,6 @@ export const getMembersByName = async (searchValue: string): Promise<MembersDb[]
 export const getInvestorsByName = async (searchValue: string): Promise<InvestorsDb[]> => {
   const data = await getInvestors()
   const dataFiltered = data.filter((investor) => {
-    console.log('investor', investor)
     return removeAccents(investor.name.toLocaleLowerCase()).includes(removeAccents(searchValue.toLocaleLowerCase()))
   })
   return dataFiltered
@@ -63,8 +62,6 @@ export const getPagesPagination = (data: MembersDb[] | InvestorsDb[]): Paginatio
 }
 
 export const getDataSorted = async (data: MembersDb[] | InvestorsDb[], orderBy: string): Promise<MembersDb[] | InvestorsDb[] | []> => {
-  console.log('orderBy', orderBy)
-
   const { DATE_ORDER, NAME_ORDER } = OrderTypes
   // const data = await getMembers()
   let dataSorted: MembersDb[] | InvestorsDb[] | [] = []

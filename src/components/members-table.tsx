@@ -5,7 +5,7 @@ import DeleteBtn from '@/components/delete-btn'
 import EditBtn from '@/components/edit-btn'
 
 // Types
-import { type MembersDb } from '@/types/types'
+import { TypeToAction, type MembersDb } from '@/types/types.d'
 
 export default function MembersTable ({ data }: { data: MembersDb[] | any }): JSX.Element {
   return (
@@ -20,8 +20,8 @@ export default function MembersTable ({ data }: { data: MembersDb[] | any }): JS
               <span className="w-28 flex-1 text-lg font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">{email}</span>
               <span className="w-28 flex-1 text-lg font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">{memberCreatedAt}</span>
               <div className='flex items-center gap-2'>
-                <EditBtn memberId={id} />
-                <DeleteBtn memberId={id} />
+                <EditBtn id={id} typeToEdit={TypeToAction.MEMBERS} />
+                <DeleteBtn id={id} typeToDelete={TypeToAction.MEMBERS} />
               </div>
             </li>
           )
