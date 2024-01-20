@@ -21,6 +21,7 @@ export const investorsSchema = z.object({
   photo: z.string(),
   name: z.string(),
   amount: z.number(),
+  idHistory: z.number().optional(),
   investedIn: z.string()
   // investorId: z.number().optional()
 })

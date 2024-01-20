@@ -19,12 +19,11 @@ export interface InvestorsDb {
 
 export interface InvestorsHistoryDb {
   id: number
-  photo: string
-  name: string
-  createdAt: Date
+  // photo: string
+  // name: string
   investorId: number
   amount: number
-  investedIn: Date
+  investedIn: string
   createdAt: Date
 }
 

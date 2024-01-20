@@ -7,14 +7,12 @@ import { useEffect, useState } from 'react'
 import { API_URL, MSG_ADDING, MSG_EDITING } from '@/constants/constants'
 
 // Types
-import { type InvestorsHistoryDb, type InvestorsDb } from '@/types/types'
+import { type InvestorsDb } from '@/types/types'
 
 export default function FormInvestor ({ investorId = null }: { investorId?: string | null }): JSX.Element {
   const [isSending, setIsSending] = useState('')
-  const [investor, setInvetor] = useState({ photo: '', name: '', amount: 0, investedIn: '', amountByDate: 0 })
-  const [amountList, setAmountList] = useState()
-  const [amountByDateSelected, setAmountByDateSelected] = useState(0)
-  const [dateList, setDateList] = useState([])
+  const [investor, setInvetor] = useState<{ photo: string, name: string, amount: number | undefined, investedIn: string | undefined, amountByDate: number }>({ photo: '', name: '', amount: 0, investedIn: '', amountByDate: 0 })
+  const [dateList, setDateList] = useState<Array<{ id: number, amount: number, investedIn: string }>>([])
   const router = useRouter()
   const textBtn = investorId === null ? 'Add' : 'Edit'
 
@@ -22,59 +20,39 @@ export default function FormInvestor ({ investorId = null }: { investorId?: stri
     if (investorId !== null) {
       const getMember = async (): Promise<void> => {
         const res = await fetch(`${API_URL}/investors/${investorId}`, { cache: 'no-cache' })
-        const data: InvestorsDb[] | InvestorsHistoryDb[] = await res.json()
-
-        console.log('data', data)
+        const data: InvestorsDb = await res.json()
         const { investorsHistory } = data
-        // const totalAmount = investorsHistory?.reduce((acc, curr) => acc + curr.amount, 0)
-        const amounts = investorsHistory?.map(eachAmount => eachAmount?.amount)
-        const historyData: Array<{ id: number, amount: number, investedIn: string }> = investorsHistory?.map((investment: { id: number, amount: number, investedIn: string }) => ({
+        const historyData = investorsHistory?.map((investment) => ({
           id: investment?.id,
           amount: investment?.amount,
           investedIn: investment?.investedIn.split('T')[0]
         }))
-
-        setAmountList(amounts)
         setDateList(historyData)
-        const { amountSelected, dateSelected } = amountAndDateSelected(historyData[historyData.length -1]?.id, historyData)
-        setInvetor({ ...data, amount: amountSelected, investedIn: dateSelected, amountByDate: historyData[historyData.length -1]?.id })
+        const { amountSelected, dateSelected } = amountAndDateSelected(historyData[historyData.length - 1]?.id, historyData)
+        setInvetor({ ...data, amount: amountSelected, investedIn: dateSelected, amountByDate: historyData[historyData.length - 1]?.id })
       }
 
       void getMember()
     }
   }, [investorId])
 
-  // useEffect(() => {
-  //   console.log('investorId', investorId)
-  // }, [investor.amount])
-
-  useEffect(() => {
-    console.log('investor', investor)
-    console.log('dateList', dateList)
-    console.log('XXXXXXXXXXXXXXXXXXXXX', investor?.amount)
-    // console.log('dateList?.find(investment => investment.amount === investor?.amount)?.investedIn', dateList?.find(investment => investment.amount == investor?.amount).investedIn)
-  }, [investor])
-
-  const handleChangeValues = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChangeValues = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { name, value } = e.target
     if (name === 'amountByDate') {
       const { amountSelected, dateSelected } = amountAndDateSelected(Number(value), dateList)
       setInvetor({ ...investor, investedIn: dateSelected, amount: amountSelected, amountByDate: Number(value) })
       return
     }
-    console.log('amountByDateSelected', amountByDateSelected)
     setInvetor({
       ...investor,
       [name]: value
     })
   }
 
-  const amountAndDateSelected = (id: number, dataProp: []): { amountSelected: number, dateSelected: string } => {
-    const amountSelected = dataProp?.find(investment => investment.id === Number(id))?.amount
-
-    console.log('dataProp', dataProp)
-
-    const dateSelected = dataProp?.find(investment => investment.id === Number(id))?.investedIn
+  const amountAndDateSelected = (id: number, dataProp: Array<{ id: number, amount: number, investedIn: string }>): { amountSelected: number | undefined, dateSelected: string | undefined } => {
+    const selectedInvestment = dataProp.find(investment => investment.id === Number(id))
+    const amountSelected = selectedInvestment?.amount
+    const dateSelected = selectedInvestment?.investedIn
     return { amountSelected, dateSelected }
   }
 
@@ -84,7 +62,8 @@ export default function FormInvestor ({ investorId = null }: { investorId?: stri
     const data = {
       ...Object.fromEntries(formData),
       photo: '',
-      investedIn: new Date(Object.fromEntries(formData).investedIn).toISOString(),
+      idHistory: Number(Object.fromEntries(formData).amountByDate),
+      investedIn: new Date(String(Object.fromEntries(formData).investedIn)).toISOString(),
       amount: Number(Object.fromEntries(formData).amount)
     }
     console.log('data', data)

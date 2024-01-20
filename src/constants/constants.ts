@@ -16,6 +16,10 @@ export const SIDEBAR_LINKS = [
   {
     name: 'Members',
     path: '/members'
+  },
+  {
+    name: 'Balance',
+    path: '/balance'
   }
 ]
 
@@ -36,4 +40,10 @@ export const MONTHS = [
   { value: 10, name: 'October' },
   { value: 11, name: 'November' },
   { value: 12, name: 'December' }
+]
+
+export const TABS_BALANCE = [
+  { name: 'Total', value: 'total' },
+  { name: 'Income', value: 'income' },
+  { name: 'Expenses', value: 'expenses' }
 ]
