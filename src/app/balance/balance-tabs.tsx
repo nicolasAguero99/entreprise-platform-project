@@ -5,7 +5,10 @@ import { useRouter } from 'next/navigation'
 // Constants
 import { TABS_BALANCE } from '@/constants/constants'
 
-export default function BalanceTabs ({ tab }: { tab: string }): JSX.Element {
+// Types
+import { type TabsBalanceParams } from '@/types/types'
+
+export default function BalanceTabs ({ tab = TABS_BALANCE[0].value as TabsBalanceParams }: { tab: TabsBalanceParams }): JSX.Element {
   console.log('tab', tab)
 
   const router = useRouter()

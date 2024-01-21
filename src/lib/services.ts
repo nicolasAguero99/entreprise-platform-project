@@ -3,7 +3,7 @@
 import { API_URL, PAGINATION_SLICE_NUMBER } from '@/constants/constants'
 
 // Types
-import { type MembersAndPagination, type MembersDb, type PaginationPages, OrderTypes, type InvestorsDb, type InvestorsHistoryDb, type InvestorsAndPagination } from '@/types/types.d'
+import { type MembersAndPagination, type MembersDb, type PaginationPages, OrderTypes, type InvestorsDb, type InvestorsHistoryDb, type InvestorsAndPagination, type BalanceDb } from '@/types/types.d'
 
 export async function addMember (e: React.FormEvent<HTMLFormElement>): Promise<void> {
   e.preventDefault()
@@ -111,4 +111,10 @@ export const getInvestorsAndPages = async (searchValue: string, currentPage: num
 
 export const removeAccents = (str: string): string => {
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+}
+
+export const getBalance = async (): Promise<BalanceDb[]> => {
+  const res = await fetch(`${API_URL}/balance`, { cache: 'no-cache' })
+  const data: BalanceDb[] = await res.json()
+  return data
 }

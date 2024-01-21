@@ -85,52 +85,42 @@ export const investorsObj = [
   {
     photo: 'url_foto_inversionista_1',
     name: 'Inversionista 1'
-    // investorsHistory: []
   },
   {
     photo: 'url_foto_inversionista_2',
     name: 'Inversionista 2'
-    // investorsHistory: []
   },
   {
     photo: 'url_foto_inversionista_3',
     name: 'Inversionista 3'
-    // investorsHistory: []
   },
   {
     photo: 'url_foto_inversionista_4',
     name: 'Inversionista 4'
-    // investorsHistory: []
   },
   {
     photo: 'url_foto_inversionista_5',
     name: 'Inversionista 5'
-    // investorsHistory: []
   },
   {
     photo: 'url_foto_inversionista_6',
     name: 'Inversionista 6'
-    // investorsHistory: []
   },
   {
     photo: 'url_foto_inversionista_7',
     name: 'Inversionista 7'
-    // investorsHistory: []
   },
   {
     photo: 'url_foto_inversionista_8',
     name: 'Inversionista 8'
-    // investorsHistory: []
   },
   {
     photo: 'url_foto_inversionista_9',
     name: 'Inversionista 9'
-    // investorsHistory: []
   },
   {
     photo: 'url_foto_inversionista_10',
     name: 'Inversionista 10'
-    // investorsHistory: []
   }
 ]
 
@@ -195,4 +185,17 @@ export const investorsHistoryObj = [
     investedIn: '2023-01-19T12:30:00Z',
     createdAt: '2023-01-19T13:15:00Z'
   }
+]
+
+export const balanceObj = [
+  { id: 1, action: 'Sale of products', amount: 5000, date: '2024-01-18T12:00:00Z', createdAt: '2024-01-18T12:00:00Z' },
+  { id: 2, action: 'Office supplies', amount: -200, date: '2024-01-18T13:30:00Z', createdAt: '2024-01-18T13:30:00Z' },
+  { id: 3, action: 'Service revenue', amount: 8000, date: '2024-01-18T15:45:00Z', createdAt: '2024-01-18T15:45:00Z' },
+  { id: 4, action: 'Utilities', amount: -350, date: '2024-01-18T18:20:00Z', createdAt: '2024-01-18T18:20:00Z' },
+  { id: 5, action: 'Investment return', amount: 1000, date: '2024-01-18T21:10:00Z', createdAt: '2024-01-18T21:10:00Z' },
+  { id: 6, action: 'Employee salaries', amount: -1500, date: '2024-01-18T23:45:00Z', createdAt: '2024-01-18T23:45:00Z' },
+  { id: 7, action: 'Partnership contribution', amount: 3000, date: '2024-01-19T09:30:00Z', createdAt: '2024-01-19T09:30:00Z' },
+  { id: 8, action: 'Marketing campaign', amount: -800, date: '2024-01-19T11:15:00Z', createdAt: '2024-01-19T11:15:00Z' },
+  { id: 9, action: 'Consulting fees', amount: 12000, date: '2024-01-19T14:20:00Z', createdAt: '2024-01-19T14:20:00Z' },
+  { id: 10, action: 'Rent payment', amount: -1200, date: '2024-01-19T17:00:00Z', createdAt: '2024-01-19T17:00:00Z' }
 ]

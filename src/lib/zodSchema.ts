@@ -34,3 +34,9 @@ export const investorsHistorySchema = z.object({
   investedIn: z.date(),
   createdAt: z.date()
 })
+
+export const balanceSchema = z.object({
+  action: z.string(),
+  amount: z.number(),
+  date: z.string()
+})

@@ -40,3 +40,11 @@ model InvestorsHistory {
   
   @@index([investorId], name: "investorId")
 }
+
+model Balance {
+  id Int @id @default(autoincrement())
+  action String
+  amount Int
+  date DateTime @default(now())
+  createdAt DateTime @default(now())
+}
