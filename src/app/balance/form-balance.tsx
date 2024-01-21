@@ -16,15 +16,16 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
   const textBtn = balanceId === null ? 'Add' : 'Edit'
 
   useEffect(() => {
+    console.log('balanceId', balanceId)
     if (balanceId !== null) {
       const getBalance = async (): Promise<void> => {
         const res = await fetch(`${API_URL}/balance/${balanceId}`, { cache: 'no-cache' })
         const data: BalanceDb = await res.json()
         const formattedData = {
           ...data,
-          date: data.date.toISOString()
+          date: String(data.date).split('T')[0]
         }
-
+        console.log('formattedData', data)
         setBalance(formattedData)
       }
 

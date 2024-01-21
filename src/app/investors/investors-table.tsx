@@ -32,21 +32,15 @@ export default function InvestorsTable ({ data, month }: { data: InvestorsDb[] |
       <tbody>
         {
           data?.map(({ id, name, investorsHistory }: InvestorsDb) => {
-            // let investedInByDate
             let amountByDate: Array<{ amount: number, investedIn: string }> = []
-            // let investedInDate
-            let totalAmountInvested
             if (month === undefined) {
-              // investedInByDate = '-'
               amountByDate = investorsHistory.filter(data => data.investorId === id).map(({ amount, investedIn }) => ({ amount, investedIn: (investedIn !== undefined ? investedIn.toLocaleString().split('T')[0] : '-') }))
-              totalAmountInvested = investorsHistory.length > 0 ? investorsHistory.filter(data => data.investorId === id)?.reduce((acc, curr) => acc + curr.amount, 0) : '-'
-              // investedInDate = investorsHistory.filter(data => data.investorId === id).map(data => data.investedIn.toLocaleString().split('T')[0])
-              // investedInDate = investedInByDate !== undefined ? investedInByDate.toLocaleString().split('T')[0] : '-'
             } else {
-              // investedInByDate = investorsHistory.filter(data => new Date(data.investedIn).getMonth() + 1 === Number(month))
-              // amountByDate = investedInByDate.length > 1 ? investedInByDate.reduce((acc, curr) => acc + curr.amount, 0) : investedInByDate[0]?.amount ?? '-'
-              // investedInDate = investedInByDate[0]?.investedIn !== undefined ? investedInByDate[0]?.investedIn.toLocaleString().split('T')[0] : '-'
+              amountByDate = investorsHistory.filter(data => new Date(data.investedIn).getMonth() + 1 === Number(month)).map(({ amount, investedIn }) => ({ amount, investedIn: (investedIn !== undefined ? investedIn.toLocaleString().split('T')[0] : '-') }))
             }
+            const totalAmountInvested = month === undefined
+              ? (investorsHistory.length > 0 ? investorsHistory.filter(data => data.investorId === id)?.reduce((acc, curr) => acc + curr.amount, 0) : '-')
+              : (amountByDate.length > 0 ? amountByDate?.reduce((acc, curr) => acc + curr.amount, 0) : '-')
             const amountValue = Number(totalAmountInvested) > 0 ? `+${totalAmountInvested}` : totalAmountInvested
             return (
               <tr key={id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">

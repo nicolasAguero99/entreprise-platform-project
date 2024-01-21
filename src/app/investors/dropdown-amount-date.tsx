@@ -3,6 +3,9 @@
 import { useState } from 'react'
 
 export default function DropdownAmountDate ({ amountByDate }: { amountByDate: Array<{ amount: number, investedIn: string }> }): JSX.Element {
+
+  console.log('amountByDate', amountByDate)
+
   const [showDropdown, setShowDropdown] = useState(false)
   const handleToggleDropdown = (): void => {
     setShowDropdown(!showDropdown)
