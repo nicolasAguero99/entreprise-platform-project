@@ -3,10 +3,13 @@ export interface MembersDb {
   photo: string
   name: string
   email: string
+  createdAt: Date
+}
+
+export interface InvoicesDb extends MembersDb {
   position: string
   salary: number
   paid: boolean
-  createdAt: Date
 }
 
 export interface InvestorsDb {
@@ -27,8 +30,6 @@ export interface BalanceDb {
 
 export interface InvestorsHistoryDb {
   id: number
-  // photo: string
-  // name: string
   investorId: number
   amount: number
   investedIn: string
@@ -44,26 +45,28 @@ export interface SearchParams {
 
 export type PaginationPages = number[]
 
-export interface MembersAndPagination {
-  data: MembersDb[] | InvestorsDb[]
+export interface PaginationParams {
   paginationPages: PaginationPages
-  prev: number
-  next: number
-}
-
-export interface InvestorsAndPagination {
-  data: InvestorsDb[] | MembersDb[]
-  paginationPages: PaginationPages
-  prev: number
-  next: number
-}
-
-export interface MembersAndPaginationProps {
-  paginationPages: PaginationPages
-  prev: number
-  next: number
   page: string
+  prev: number
+  next: number
   search: string
+}
+
+export interface MembersAndPaginationProps extends PaginationParams {
+  data: MembersDb[]
+}
+
+export interface InvoicesAndPaginationProps extends PaginationParams {
+  data: InvoicesDb[]
+}
+
+export interface InvestorsAndPagination extends PaginationParams {
+  data: InvestorsDb[]
+}
+
+export interface BalanceAndPagination extends PaginationParams {
+  data: BalanceDb[]
 }
 
 export enum ActionTypes {

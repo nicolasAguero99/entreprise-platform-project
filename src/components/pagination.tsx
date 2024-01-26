@@ -4,12 +4,12 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 
 // Types
-import { ActionTypes, type MembersAndPaginationProps } from '@/types/types.d'
+import { ActionTypes, type PaginationParams } from '@/types/types.d'
 
 // Services
 import { createQueryParams } from '@/lib/utils'
 
-export default function Pagination ({ paginationPages, prev, next, page, search }: MembersAndPaginationProps): JSX.Element {
+export default function Pagination ({ paginationPages, prev, next, page, search }: PaginationParams): JSX.Element {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { PREV_ACTION, NEXT_ACTION, PAGE_ACTION } = ActionTypes

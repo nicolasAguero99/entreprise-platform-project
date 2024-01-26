@@ -1,4 +1,14 @@
-export default function Dashboard (): JSX.Element {
+// Components
+import PieChart from '@/components/dashboard/Chart'
+
+// Services
+import { getStatesPaidsMembers } from '@/lib/services'
+
+export default async function Dashboard (): Promise<JSX.Element> {
+  const statePaids: Array<{ paid: boolean }> = await getStatesPaidsMembers()
+
+  console.log('statePaids', statePaids)
+
   return (
     <main className="w-full">
       <div className="flex flex-col gap-4">
@@ -22,7 +32,7 @@ export default function Dashboard (): JSX.Element {
         <section className="flex flex-col gap-4">
           <h2 className="text-2xl font-semibold">ff</h2>
           <div className='grid grid-cols-2 gap-4'>
-            <div className="bg-gray-200">Users</div>
+            <PieChart statePaids={statePaids} />
             <div className="bg-gray-200">Data</div>
             <div className="bg-gray-200">Data</div>
           </div>

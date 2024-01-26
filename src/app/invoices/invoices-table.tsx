@@ -2,9 +2,9 @@
 import PayButton from '@/components/pay-button'
 
 // Types
-import { type MembersDb } from '@/types/types'
+import { type InvoicesDb } from '@/types/types'
 
-export default function InvoicesTable ({ data }: { data: MembersDb[] }): JSX.Element {
+export default function InvoicesTable ({ data }: { data: InvoicesDb[] }): JSX.Element {
   return (
     <div className="relative overflow-x-auto my-6">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -29,7 +29,7 @@ export default function InvoicesTable ({ data }: { data: MembersDb[] }): JSX.Ele
       </thead>
       <tbody>
         {
-          data?.map(({ id, name, position, salary, paid }: MembersDb) => {
+          data?.map(({ id, name, position, salary, paid }: InvoicesDb) => {
             const salaryFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(salary)
             const paidText = paid ? 'Paid' : 'Pending'
             return (

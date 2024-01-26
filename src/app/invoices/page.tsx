@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 // Types
-import { type SearchParams, type MembersAndPagination, type OrderTypes } from '@/types/types.d'
+import { type SearchParams, type InvoicesAndPaginationProps, type OrderTypes } from '@/types/types.d'
 
 // Components
 import InputSearchMember from '@/components/input-search-member'
@@ -12,7 +12,7 @@ import InvoicesTable from './invoices-table'
 // Services
 import { getMembersAndPages } from '@/lib/services'
 
-export default async function MembersPage ({ searchParams }: { searchParams: SearchParams }): Promise<JSX.Element> {
+export default async function InvoicesPage ({ searchParams }: { searchParams: SearchParams }): Promise<JSX.Element> {
   const { page } = searchParams
   const { search } = searchParams
   const { order } = searchParams
@@ -21,7 +21,7 @@ export default async function MembersPage ({ searchParams }: { searchParams: Sea
 
   const orderValue = order ?? ''
   const searchValue: OrderTypes | string = search ?? ''
-  const { data, paginationPages, prev, next }: MembersAndPagination = await getMembersAndPages(searchValue, Number(page), orderValue)
+  const { data, paginationPages, prev, next }: InvoicesAndPaginationProps = await getMembersAndPages(searchValue, Number(page), orderValue)
 
   return (
     <main className="flex flex-col flex-1 px-8 py-4">

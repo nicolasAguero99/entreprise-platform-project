@@ -1,5 +1,5 @@
 // Components
-import Dashboard from '@/components/dashboard'
+import Dashboard from '@/components/dashboard/dashboard'
 
 export default function Home (): JSX.Element {
   return (

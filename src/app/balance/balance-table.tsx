@@ -1,22 +1,29 @@
 // Types
-import { TypeToAction, type BalanceDb, type TabsBalanceParams } from '@/types/types.d'
+import { TypeToAction, type BalanceDb, type TabsBalanceParams, type BalanceAndPagination, type OrderTypes } from '@/types/types.d'
 
 // Components
 import EditBtn from '@/components/edit-btn'
 import DeleteBtn from '@/components/delete-btn'
+import Pagination from '@/components/pagination'
+import InputSearchMember from '@/components/input-search-member'
 
-// Services
-import { getBalance } from '@/lib/services'
+// Constants
 import { TABS_BALANCE } from '@/constants/constants'
 
-export default async function BalanceTable ({ tab = TABS_BALANCE[0].value as TabsBalanceParams }: { tab: TabsBalanceParams }): Promise<JSX.Element> {
-  const data = await getBalance()
-  const filteredData = data?.filter(({ amount }: BalanceDb) => {
+// Services
+import { getBalanceAndPages } from '@/lib/services'
+import OrderBy from '@/components/order-by-member'
+
+export default async function BalanceTable ({ tab = TABS_BALANCE[0].value as TabsBalanceParams, searchValue = '', page, order = '' }: { tab: TabsBalanceParams, searchValue: string, page: string, order: OrderTypes | string }): Promise<JSX.Element> {
+  const { data, paginationPages, prev, next }: BalanceAndPagination = await getBalanceAndPages(searchValue, Number(page), order)
+  const filteredData = (data)?.filter(({ amount }) => {
     return (tab === TABS_BALANCE[1].value && amount > 0) || (tab === TABS_BALANCE[2].value && amount < 0) || (tab === TABS_BALANCE[0].value)
   })
 
   return (
     <div className="relative my-6">
+    <InputSearchMember />
+    <OrderBy />
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <thead className="text-xs text-gray-700 uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-400">
         <tr>
@@ -60,6 +67,7 @@ export default async function BalanceTable ({ tab = TABS_BALANCE[0].value as Tab
         }
       </tbody>
     </table>
+      <Pagination paginationPages={paginationPages} prev={prev} next={next} page={page} search={searchValue} />
     </div>
   )
 }
