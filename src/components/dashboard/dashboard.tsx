@@ -2,14 +2,16 @@
 import ChartStatusPaid from '@/components/dashboard/chart-status-paid'
 import ChartInvestments from '@/components/dashboard/chart-investments'
 import ChartProfitable from '@/components/dashboard/chart-profitable'
+import ChartBalance from './chart-balance'
 
 // Services
-import { getInvestmentsByMonth, getProfitable, getStatesPaidsMembers } from '@/lib/services'
+import { getBalanceAmounts, getInvestmentsByMonth, getProfitable, getStatesPaidsMembers } from '@/lib/services'
 
 export default async function Dashboard (): Promise<JSX.Element> {
   const statePaids: Array<{ paid: boolean }> = await getStatesPaidsMembers()
   const investments: number[] = await getInvestmentsByMonth()
   const profitable: number[] = await getProfitable()
+  const balance: Array<{ amount: number }> = await getBalanceAmounts()
 
   return (
     <main className="w-full">
@@ -35,7 +37,7 @@ export default async function Dashboard (): Promise<JSX.Element> {
           <h2 className="text-2xl font-semibold">ff</h2>
           <div className='grid grid-cols-3 gap-4'>
             <ChartStatusPaid statePaids={statePaids} />
-            <ChartStatusPaid statePaids={statePaids} />
+            <ChartBalance balance={balance} />
             <ChartStatusPaid statePaids={statePaids} />
           </div>
           <div className='grid grid-cols-2 gap-4'>

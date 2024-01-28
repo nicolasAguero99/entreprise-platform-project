@@ -162,3 +162,9 @@ export const getProfitable = async (): Promise<number[]> => {
   const data: number[] = await res.json()
   return data
 }
+
+export const getBalanceAmounts = async (): Promise<Array<{ amount: number }>> => {
+  const res = await fetch(`${API_URL}/balance/amounts`, { cache: 'no-cache' })
+  const data: Array<{ amount: number }> = await res.json()
+  return data
+}

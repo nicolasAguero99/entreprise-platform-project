@@ -4,6 +4,9 @@ import { Prisma } from '@prisma/client'
 // Lib
 import { prisma } from '@/lib/prisma'
 
+// Constants
+import { MONTHS } from '@/constants/constants'
+
 export async function GET (): Promise<NextResponse> {
   const dataBalance = await prisma.balance.findMany({
     select: { amount: true, date: true }
@@ -22,10 +25,15 @@ export async function GET (): Promise<NextResponse> {
       .toString()
       .padStart(2, '0')}`
       acc[month] = acc[month] || []
-      acc[month] = [Number(acc[month]) + curr.amount]
-      // acc[month].push(curr.amount)
+      acc[month] = Number(acc[month]) + curr.amount
       return acc
     }, {})
+  const allDataFilled = MONTHS.slice(1, MONTHS.length).map(month => {
+    const monthFormated = String(month.value).padStart(2, '0')
+    const isExist = Object.keys(allDataReduced).find(item => item.split('-')[1] === monthFormated)
+    return !isExist ? { [`2023-${monthFormated}`]: 0 } : { [isExist]: allDataReduced[isExist] }
+  })
+  const allAmount = allDataFilled.map(item => Object.values(item)[0])
 
-  return NextResponse.json(allDataReduced)
+  return NextResponse.json(allAmount)
 }
