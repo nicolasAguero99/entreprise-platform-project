@@ -150,3 +150,15 @@ export const getStatesPaidsMembers = async (): Promise<Array<{ paid: boolean }>>
   const data: Array<{ paid: boolean }> = await res.json()
   return data
 }
+
+export const getInvestmentsByMonth = async (): Promise<number[]> => {
+  const res = await fetch(`${API_URL}/investors/investments`, { cache: 'no-cache' })
+  const data: number[] = await res.json()
+  return data
+}
+
+export const getProfitable = async (): Promise<number[]> => {
+  const res = await fetch(`${API_URL}/balance/profitable`, { cache: 'no-cache' })
+  const data: number[] = await res.json()
+  return data
+}

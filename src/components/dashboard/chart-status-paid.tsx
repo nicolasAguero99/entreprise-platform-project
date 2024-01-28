@@ -5,10 +5,12 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
 // Services
 
-export default function PieChart ({ statePaids }: { statePaids: Array<{ paid: boolean }> }): JSX.Element {
+export default function ChartStatusPaid ({ statePaids }: { statePaids: Array<{ paid: boolean }> }): JSX.Element {
+  // console.log('statePaids', statePaids)
+
   ChartJS.register(ArcElement, Tooltip, Legend)
 
-  const { paided, unpaided } = statePaids.reduce(
+  const { paided, unpaided } = statePaids?.reduce(
     (accumulator, { paid }) => ({
       paided: accumulator.paided + Number(paid),
       unpaided: accumulator.unpaided + Number(!paid)
