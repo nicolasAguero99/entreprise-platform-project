@@ -94,3 +94,10 @@ export interface AmountByMonth {
   amount: number
   investedIn: string
 }
+
+export type PositionCount = Record<string, number>
+
+export interface CardHeader {
+  type: string
+  title: string
+}

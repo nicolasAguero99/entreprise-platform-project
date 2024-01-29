@@ -1,10 +1,10 @@
 'use server'
+
 // Constants
 import { API_URL, PAGINATION_SLICE_NUMBER } from '@/constants/constants'
 
 // Types
-import { type MembersAndPagination, type BalanceAndPagination, type MembersDb, type PaginationPages, OrderTypes, type InvestorsDb, type InvestorsHistoryDb, type InvestorsAndPagination, type BalanceDb } from '@/types/types.d'
-import { boolean } from 'zod'
+import { type BalanceAndPagination, type MembersDb, type PaginationPages, OrderTypes, type InvestorsDb, type InvestorsHistoryDb, type InvestorsAndPagination, type BalanceDb, type PositionCount } from '@/types/types.d'
 
 export async function addMember (e: React.FormEvent<HTMLFormElement>): Promise<void> {
   e.preventDefault()
@@ -166,5 +166,17 @@ export const getProfitable = async (): Promise<number[]> => {
 export const getBalanceAmounts = async (): Promise<Array<{ amount: number }>> => {
   const res = await fetch(`${API_URL}/balance/amounts`, { cache: 'no-cache' })
   const data: Array<{ amount: number }> = await res.json()
+  return data
+}
+
+export const getPositionsMembers = async (): Promise<PositionCount[]> => {
+  const res = await fetch(`${API_URL}/members/positions`, { cache: 'no-cache' })
+  const data: PositionCount[] = await res.json()
+  return data
+}
+
+export const getBalanceTotal = async (): Promise<number> => {
+  const res = await fetch(`${API_URL}/balance/total`, { cache: 'no-cache' })
+  const data: number = await res.json()
   return data
 }

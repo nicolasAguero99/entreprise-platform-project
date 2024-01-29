@@ -47,3 +47,7 @@ export const TABS_BALANCE = [
   { name: 'Income', value: 'income' },
   { name: 'Expenses', value: 'expenses' }
 ]
+
+export const TITLES_CARDS_HEADER = [
+  { type: 'balanceTotal', title: 'Total balance' }
+]
