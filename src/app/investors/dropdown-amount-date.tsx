@@ -29,7 +29,7 @@ export default function DropdownAmountDate ({ amountByDate }: { amountByDate: Ar
       </span>
       {
         amountByDate.length > 1 && (
-          <div className={`${!showDropdown ? 'hidden' : ''} absolute w-full top-12 -left-6 bg-slate-700 shadow-lg rounded-lg z-20`}>
+          <div className={`${!showDropdown ? 'hidden' : ''} absolute w-full top-12 -left-6 bg-slate-700 shadow-md rounded-lg z-20`}>
             <ul className='divide-y divide-gray-600 text-center'>
               {
                 amountByDate.map((item, index: number) => (

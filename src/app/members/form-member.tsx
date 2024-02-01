@@ -82,17 +82,17 @@ export default function FormMember ({ memberId = null }: { memberId?: string | n
   return (
     <form onSubmit={(e) => { void handleMember(e) }}>
       <label htmlFor="photo" className="block text-lg font-medium">Photo</label>
-      {/* <input type="file" name="photo" id="photo" className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" /> */}
+      {/* <input type="file" name="photo" id="photo" className="w-full border-gray-300 rounded-md shadow-md focus:border-indigo-500 focus:ring-indigo-500" /> */}
       <label htmlFor="name" className="block text-lg font-medium">Name</label>
-      <input onChange={handleChangeValues} type="text" name="name" placeholder='Type name' id="name" className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" value={member?.name} />
+      <input onChange={handleChangeValues} type="text" name="name" placeholder='Type name' id="name" className="w-full border-gray-300 rounded-md shadow-md focus:border-indigo-500 focus:ring-indigo-500" value={member?.name} />
       <label htmlFor="email" className="block text-lg font-medium">Email</label>
-      <input onChange={handleChangeValues} type="email" name="email" placeholder='Type email' id="email" className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" value={member?.email} />
+      <input onChange={handleChangeValues} type="email" name="email" placeholder='Type email' id="email" className="w-full border-gray-300 rounded-md shadow-md focus:border-indigo-500 focus:ring-indigo-500" value={member?.email} />
       <label htmlFor="position" className="block text-lg font-medium">Position</label>
-      <input onChange={handleChangeValues} type="text" name="position" placeholder='Type position' id="position" className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" value={member?.position} />
+      <input onChange={handleChangeValues} type="text" name="position" placeholder='Type position' id="position" className="w-full border-gray-300 rounded-md shadow-md focus:border-indigo-500 focus:ring-indigo-500" value={member?.position} />
       <label htmlFor="salary" className="block text-lg font-medium">Salary</label>
-      <input onChange={handleChangeValues} type="number" name="salary" placeholder='Type salary' id="salary" className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" value={member?.salary} />
+      <input onChange={handleChangeValues} type="number" name="salary" placeholder='Type salary' id="salary" className="w-full border-gray-300 rounded-md shadow-md focus:border-indigo-500 focus:ring-indigo-500" value={member?.salary} />
       {/* <label htmlFor="paid" className="block text-lg font-medium">Paid</label>
-      <input onChange={handleChangeValues} type="checkbox" name="paid" placeholder='Type paid' id="paid" className="border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" checked={member.paid} /> */}
+      <input onChange={handleChangeValues} type="checkbox" name="paid" placeholder='Type paid' id="paid" className="border-gray-300 rounded-md shadow-md focus:border-indigo-500 focus:ring-indigo-500" checked={member.paid} /> */}
       <button className={`w-full h-12 ${isSending === '' ? 'bg-indigo-500' : 'bg-indigo-300'} hover:bg-indigo-300 text-white rounded-md text-lg font-medium mt-4`}>{isSending === '' ? textBtn : isSending}</button>
     </form>
   )

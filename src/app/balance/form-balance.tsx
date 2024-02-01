@@ -88,11 +88,11 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
   return (
     <form onSubmit={(e) => { void handleMember(e) }}>
       <label htmlFor="name" className="block text-lg font-medium">Action</label>
-      <input onChange={handleChangeValues} type="text" name="action" placeholder='Type action' id="action" className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" value={balance?.action} />
+      <input onChange={handleChangeValues} type="text" name="action" placeholder='Type action' id="action" className="w-full border-gray-300 rounded-md shadow-md focus:border-indigo-500 focus:ring-indigo-500" value={balance?.action} />
       <label htmlFor="email" className="block text-lg font-medium">Amount</label>
-      <input onChange={handleChangeValues} type="number" name="amount" placeholder='Type amount' id="amount" className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" value={balance?.amount} />
+      <input onChange={handleChangeValues} type="number" name="amount" placeholder='Type amount' id="amount" className="w-full border-gray-300 rounded-md shadow-md focus:border-indigo-500 focus:ring-indigo-500" value={balance?.amount} />
       <label htmlFor="position" className="block text-lg font-medium">Date</label>
-      <input onChange={handleChangeValues} type="date" name="date" placeholder='Type date' id="date" className="w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500" value={balance?.date} />
+      <input onChange={handleChangeValues} type="date" name="date" placeholder='Type date' id="date" className="w-full border-gray-300 rounded-md shadow-md focus:border-indigo-500 focus:ring-indigo-500" value={balance?.date} />
       <button className={`w-full h-12 ${isSending === '' ? 'bg-indigo-500' : 'bg-indigo-300'} hover:bg-indigo-300 text-white rounded-md text-lg font-medium mt-4`}>{isSending === '' ? textBtn : isSending}</button>
     </form>
   )

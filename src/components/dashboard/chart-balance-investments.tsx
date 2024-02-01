@@ -3,14 +3,10 @@
 import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
-// Services
-
-export default function ChartBalance ({ balance }: { balance: Array<{ amount: number }> }): JSX.Element {
-  console.log('balance', balance)
-
+export default function ChartBalanceInvestments ({ balanceInvestments }: { balanceInvestments: Array<{ amount: number }> }): JSX.Element {
   ChartJS.register(ArcElement, Tooltip, Legend)
 
-  const { incomes, expenses } = balance.reduce(
+  const { incomes, expenses } = balanceInvestments.reduce(
     (accumulator, { amount }) => {
       return {
         incomes: amount > 0 ? accumulator.incomes + amount : accumulator.incomes,
@@ -32,7 +28,7 @@ export default function ChartBalance ({ balance }: { balance: Array<{ amount: nu
       'Expenses'
     ],
     datasets: [{
-      label: 'Amount of balance',
+      label: 'Amount of investments',
       data: [incomes, expenses],
       backgroundColor: [
         'lightgreen',
@@ -56,8 +52,8 @@ export default function ChartBalance ({ balance }: { balance: Array<{ amount: nu
   }
 
   return (
-    <div className='relative flex flex-col gap-6 w-full h-full py-10 px-6'>
-      <h2 className='font-semibold text-xl text-center'>Percentage of balance</h2>
+    <div className='flex flex-col gap-6 relative w-full h-full py-10 px-6'>
+      <h2 className='font-semibold text-xl text-center'>Balance of investments</h2>
       <div className='w-[200px] h-[200px] mx-auto'>
         <Doughnut data={data} options={options} />
       </div>

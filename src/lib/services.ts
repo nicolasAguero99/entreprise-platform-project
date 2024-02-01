@@ -169,14 +169,26 @@ export const getBalanceAmounts = async (): Promise<Array<{ amount: number }>> =>
   return data
 }
 
-export const getPositionsMembers = async (): Promise<PositionCount[]> => {
-  const res = await fetch(`${API_URL}/members/positions`, { cache: 'no-cache' })
-  const data: PositionCount[] = await res.json()
+export const getBalanceInvesments = async (): Promise<Array<{ amount: number }>> => {
+  const res = await fetch(`${API_URL}/investors/amounts`, { cache: 'no-cache' })
+  const data: Array<{ amount: number }> = await res.json()
   return data
 }
 
 export const getBalanceTotal = async (): Promise<number> => {
   const res = await fetch(`${API_URL}/balance/total`, { cache: 'no-cache' })
+  const data: number = await res.json()
+  return data
+}
+
+export const getLatestInvestment = async (): Promise<number> => {
+  const res = await fetch(`${API_URL}/investors/latest`, { cache: 'no-cache' })
+  const data: number = await res.json()
+  return data
+}
+
+export const getLatestAction = async (): Promise<number> => {
+  const res = await fetch(`${API_URL}/balance/latest`, { cache: 'no-cache' })
   const data: number = await res.json()
   return data
 }

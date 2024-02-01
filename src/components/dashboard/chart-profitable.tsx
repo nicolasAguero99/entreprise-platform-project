@@ -7,8 +7,6 @@ import { Chart as ChartJS, CategoryScale, LinearScale, Title, Tooltip, Legend, B
 import { MONTHS } from '@/constants/constants'
 
 export default function ChartProfitable ({ profitable }: { profitable: number[] }): JSX.Element {
-  console.log('profitable', profitable)
-
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -17,19 +15,6 @@ export default function ChartProfitable ({ profitable }: { profitable: number[] 
     Tooltip,
     Legend
   )
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart'
-      }
-    }
-  }
 
   const labels = MONTHS.slice(1, MONTHS.length).map(({ name }) => name.slice(0, 3))
 
@@ -45,9 +30,28 @@ export default function ChartProfitable ({ profitable }: { profitable: number[] 
     ]
   }
 
+  const options = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Profitability by month',
+        color: 'black',
+        font: {
+          size: 22,
+          weight: 'bold',
+          family: 'Inter'
+        }
+      },
+      legend: {
+        display: false
+      }
+    }
+  }
+
   return (
-    <div className='w-full h-full'>
-      <Bar data={data} options={options} />
+    <div className='w-full h-[280px] flex flex-col items-center gap-2 bg-white p-4 rounded-lg shadow-md'>
+      <Bar style={{ width: '100px', height: '100px' }} data={data} options={options} />
     </div>
   )
 }

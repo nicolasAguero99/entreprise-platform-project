@@ -49,5 +49,7 @@ export const TABS_BALANCE = [
 ]
 
 export const TITLES_CARDS_HEADER = [
-  { type: 'balanceTotal', title: 'Total balance' }
+  { type: 'balanceTotal', title: 'Total balance' },
+  { type: 'latestInvestment', title: 'Last investment' },
+  { type: 'latestAction', title: 'Last action' }
 ]

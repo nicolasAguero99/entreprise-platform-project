@@ -17,19 +17,6 @@ export default function ChartInvestments ({ investments }: { investments: number
     Legend
   )
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top' as const
-      },
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart'
-      }
-    }
-  }
-
   const labels = MONTHS.slice(1, MONTHS.length).map(({ name }) => name.slice(0, 3))
 
   const data = {
@@ -44,9 +31,28 @@ export default function ChartInvestments ({ investments }: { investments: number
     ]
   }
 
+  const options = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: 'Investments by month',
+        color: 'black',
+        font: {
+          size: 22,
+          weight: 'bold',
+          family: 'Inter'
+        }
+      },
+      legend: {
+        display: false
+      }
+    }
+  }
+
   return (
-    <div className='w-full h-full'>
-      <Line data={data} options={options} />
+    <div className='w-full h-[280px] flex flex-col items-center gap-2 bg-white p-4 rounded-lg shadow-md'>
+      <Line style={{ width: '100px', height: '100px' }} data={data} options={options} />
     </div>
   )
 }

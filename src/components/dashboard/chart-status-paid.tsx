@@ -18,19 +18,27 @@ export default function ChartStatusPaid ({ statePaids }: { statePaids: Array<{ p
     { paided: 0, unpaided: 0 }
   )
 
+  const percentage = Math.abs(unpaided) < paided
+    ? ((Math.abs(unpaided) / paided) * 100).toFixed(0)
+    : ((paided / Math.abs(unpaided)) * 100).toFixed(0)
+
+  const remainingPercentage = 100 - Number(percentage)
+
   const data = {
     labels: [
       'Paid',
       'Unpaid'
     ],
     datasets: [{
-      label: 'Member salary status',
+      label: 'Amount of paid salaries',
       data: [paided, unpaided],
       backgroundColor: [
-        'rgb(255, 99, 132)',
-        'rgb(255, 205, 86)'
+        'lightgreen',
+        'red'
       ],
-      hoverOffset: 4
+      hoverOffset: 4,
+      borderWidth: 4,
+      cutout: '80%'
     }]
   }
 
@@ -38,13 +46,23 @@ export default function ChartStatusPaid ({ statePaids }: { statePaids: Array<{ p
     color: '#000',
     reponsive: true,
     plugins: {
-      legend: { position: 'right', labels: { boxWidth: 10, padding: 15, usePointStyle: true, pointStyleWidth: 20, font: { size: 14, family: 'Montserrat' } } }
-    }
+      legend: {
+        display: false
+      }
+    },
+    rotation: 180
   }
 
   return (
-    <div className='w-full h-full'>
-      <Doughnut data={data} options={options} />
+    <div className='flex flex-col gap-6 relative w-full h-full py-10 px-6'>
+      <h2 className='font-semibold text-xl text-center'>Paid salaries</h2>
+      <div className='w-[200px] h-[200px] mx-auto'>
+        <Doughnut data={data} options={options} />
+      </div>
+      <div className='w-full flex justify-between gap-4'>
+        <div className='font-bold text-green-400 text-3xl'>{remainingPercentage}%</div>
+        <div className='font-bold text-red-400 text-3xl'>{percentage}%</div>
+      </div>
     </div>
   )
 }
