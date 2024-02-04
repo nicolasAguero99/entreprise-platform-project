@@ -92,9 +92,15 @@ export const getDataSorted = async (data: any, orderBy: string): Promise<any> =>
     })
   } else if (orderBy === NAME_ORDER) {
     dataSorted = data.sort((a, b) => {
-      const nameA = a.name.toLowerCase()
-      const nameB = b.name.toLowerCase()
-      return nameA.localeCompare(nameB)
+      if (a.name !== undefined && b.name !== undefined) {
+        const nameA = a.name.toLowerCase()
+        const nameB = b.name.toLowerCase()
+        return nameA.localeCompare(nameB)
+      } else {
+        const nameA = a.action.toLowerCase()
+        const nameB = b.action.toLowerCase()
+        return nameA.localeCompare(nameB)
+      }
     })
   } else {
     dataSorted = data

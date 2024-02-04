@@ -31,11 +31,10 @@ export default function Pagination ({ paginationPages, prev, next, page, search 
   }
 
   return (
-    <>
     <nav>
       <ul className="flex items-center justify-center -space-x-px h-8 text-sm">
         <li>
-          <button onClick={() => { handleGoPage(PREV_ACTION) }} className={`${Number(page) > 1 ? 'flex' : 'hidden'} items-center justify-center mx-1 px-3 h-8 leading-tight border border-gray-300 rounded-lg hover:bg-gray-300 hover:text-gray-700 bg-gray-700 text-gray-100`}>
+          <button onClick={() => { handleGoPage(PREV_ACTION) }} className={`${Number(page) > 1 ? 'flex' : 'hidden'} items-center justify-center mx-1 px-3 h-8 leading-tight border border-gray-300 rounded-lg hover:bg-gray-300 hover:text-gray-700 bg-background text-gray-100`}>
             <span className="sr-only">Previous</span>
             <svg className="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 1 1 5l4 4"/>
@@ -48,7 +47,7 @@ export default function Pagination ({ paginationPages, prev, next, page, search 
             const isFirstPage = pageNumber === 1 && page === undefined
             return (
               <li key={pageNumber}>
-                <button onClick={() => { handleGoPage(PAGE_ACTION, pageNumber) }} className={`flex items-center justify-center mx-1 px-3 h-8 leading-tight border border-gray-300 rounded-lg hover:bg-gray-300 hover:text-gray-700 ${pageNumber === Number(page) || isFirstPage ? 'text-gray-700 bg-gray-100' : 'bg-gray-700 text-gray-100'}`}>
+                <button onClick={() => { handleGoPage(PAGE_ACTION, pageNumber) }} className={`flex items-center justify-center mx-1 px-3 h-8 leading-tight border border-gray-300 rounded-lg hover:bg-gray-300 hover:text-gray-700 ${pageNumber === Number(page) || isFirstPage ? 'text-gray-700 bg-gray-100' : 'bg-background text-gray-100'}`}>
                   <span className="sr-only">{pageNumber}</span>
                   {pageNumber}
                 </button>
@@ -57,7 +56,7 @@ export default function Pagination ({ paginationPages, prev, next, page, search 
           })
         }
         <li>
-          <button onClick={() => { handleGoPage(NEXT_ACTION) }} className={`${Number(page) < paginationPages.length || (page === undefined && paginationPages.length > 1) ? 'flex' : 'hidden'} items-center justify-center mx-1 px-3 h-8 leading-tight border border-gray-300 rounded-lg hover:bg-gray-300 hover:text-gray-700 bg-gray-700 text-gray-100`}>
+          <button onClick={() => { handleGoPage(NEXT_ACTION) }} className={`${Number(page) < paginationPages.length || (page === undefined && paginationPages.length > 1) ? 'flex' : 'hidden'} items-center justify-center mx-1 px-3 h-8 leading-tight border border-gray-300 rounded-lg hover:bg-gray-300 hover:text-gray-700 bg-background text-gray-100`}>
             <span className="sr-only">Next</span>
             <svg className="w-3 h-3 rtl:rotate-180" aria-hidden="true" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 9 4-4-4-4"/>
@@ -66,6 +65,5 @@ export default function Pagination ({ paginationPages, prev, next, page, search 
         </li>
       </ul>
     </nav>
-    </>
   )
 }

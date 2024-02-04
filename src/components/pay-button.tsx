@@ -7,10 +7,10 @@ import { API_URL } from '@/constants/constants'
 
 export default function PayButton ({ memberId, paid }: { memberId: number, paid: boolean }): JSX.Element {
   const router = useRouter()
-  const textButton = paid ? 'Unpay' : 'Pay'
+  const textButton = paid ? 'Paid' : 'Unpaid'
+  const color = paid ? 'text-green-500' : 'text-red-500'
 
   const handlePaidToggle = async (): Promise<void> => {
-    console.log('paid', paid)
     await fetch(`${API_URL}/invoices/${memberId}`, {
       method: 'PUT',
       body: JSON.stringify({ paid: !paid }),
@@ -22,6 +22,6 @@ export default function PayButton ({ memberId, paid }: { memberId: number, paid:
   }
 
   return (
-    <button onClick={() => { void handlePaidToggle() }} className='bg-slate-800 text-white rounded-lg px-4 py-2'>{textButton}</button>
+    <button onClick={() => { void handlePaidToggle() }} className={`${color} underline`}>{textButton}</button>
   )
 }

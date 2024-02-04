@@ -27,7 +27,7 @@ export default function SelectDate ({ currentMonth }: { currentMonth: Months }):
   }
 
   return (
-    <select onChange={handleDateChange} className="block w-full px-3 py-2 mt-1 text-sm bg-slate-600 text-white border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500" value={String(currentMonth)}>
+    <select onChange={handleDateChange} className="block w-full px-3 py-2 my-6 text-sm bg-background text-white rounded-md" value={String(currentMonth)}>
       {
         MONTHS.map(month => <option key={month.value} value={month.value}>{month.name}</option>
         )

@@ -3,16 +3,13 @@
 import { useState } from 'react'
 
 export default function DropdownAmountDate ({ amountByDate }: { amountByDate: Array<{ amount: number, investedIn: string }> }): JSX.Element {
-
-  console.log('amountByDate', amountByDate)
-
   const [showDropdown, setShowDropdown] = useState(false)
   const handleToggleDropdown = (): void => {
     setShowDropdown(!showDropdown)
   }
 
   return (
-    <td onClick={handleToggleDropdown} scope="row" className={`${amountByDate.length > 1 ? 'cursor-pointer' : ''} relative px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white`}>
+    <td onClick={handleToggleDropdown} scope="row" className={`${amountByDate.length > 1 ? 'cursor-pointer' : ''} relative z-10 px-6 py-4 font-medium text-gray-500 whitespace-nowrap`}>
       <span className='flex gap-2 items-center'>
         {
           amountByDate.length > 1
@@ -29,12 +26,12 @@ export default function DropdownAmountDate ({ amountByDate }: { amountByDate: Ar
       </span>
       {
         amountByDate.length > 1 && (
-          <div className={`${!showDropdown ? 'hidden' : ''} absolute w-full top-12 -left-6 bg-slate-700 shadow-md rounded-lg z-20`}>
-            <ul className='divide-y divide-gray-600 text-center'>
+          <div className={`${!showDropdown ? 'hidden' : ''} absolute w-full top-12 -left-6 bg-white shadow-md rounded-lg z-20`}>
+            <ul className='divide-y divide-gray-300 text-center px-6'>
               {
                 amountByDate.map((item, index: number) => (
                   <li key={index} className='py-4 font-medium'>
-                    (<span className={`${Number(item.amount) > 0 ? 'dark:text-green-400' : Number(item.amount) < 0 ? 'dark:text-red-500' : 'dark:text-yellow-500'}`}>{Number(item.amount) > 0 ? `+${item.amount}` : item.amount}</span>) - <span>{item.investedIn}</span>
+                    (<span className={`${Number(item.amount) > 0 ? 'text-green-400' : Number(item.amount) < 0 ? 'text-red-500' : 'text-yellow-500'}`}>{Number(item.amount) > 0 ? `+${item.amount}` : item.amount}</span>) - <span>{item.investedIn}</span>
                   </li>
                 ))
               }

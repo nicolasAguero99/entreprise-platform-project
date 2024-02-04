@@ -1,73 +1,67 @@
 // Types
-import { TypeToAction, type BalanceDb, type TabsBalanceParams, type BalanceAndPagination, type OrderTypes } from '@/types/types.d'
+import { TypeToAction, type BalanceDb, type TabsBalanceParams } from '@/types/types.d'
 
 // Components
 import EditBtn from '@/components/edit-btn'
 import DeleteBtn from '@/components/delete-btn'
-import Pagination from '@/components/pagination'
-import InputSearchMember from '@/components/input-search-member'
+import OrderByName from '@/components/order-by-name'
+import OrderByDate from '@/components/order-by-date'
 
 // Constants
-import { TABS_BALANCE } from '@/constants/constants'
+import { TABS_BALANCE, TEXT_TABLE_DATE } from '@/constants/constants'
 
 // Services
-import { getBalanceAndPages } from '@/lib/services'
-import OrderBy from '@/components/order-by-member'
 
-export default async function BalanceTable ({ tab = TABS_BALANCE[0].value as TabsBalanceParams, searchValue = '', page, order = '' }: { tab: TabsBalanceParams, searchValue: string, page: string, order: OrderTypes | string }): Promise<JSX.Element> {
-  const { data, paginationPages, prev, next }: BalanceAndPagination = await getBalanceAndPages(searchValue, Number(page), order)
+export default async function BalanceTable ({ data, tab = TABS_BALANCE[0].value as TabsBalanceParams }: { data: BalanceDb[], tab: TabsBalanceParams }): Promise<JSX.Element> {
   const filteredData = (data)?.filter(({ amount }) => {
     return (tab === TABS_BALANCE[1].value && amount > 0) || (tab === TABS_BALANCE[2].value && amount < 0) || (tab === TABS_BALANCE[0].value)
   })
 
   return (
-    <div className="relative my-6">
-    <InputSearchMember />
-    <OrderBy />
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" className="px-6 py-3">
-            Id
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Name
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Amount
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Invested in
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Actions
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          filteredData?.map(({ id, action, amount, date }: BalanceDb) => {
-            const [memberCreatedAt] = new Date(date).toISOString().split('T')
-            const amountText = amount > 0 ? `+${amount.toLocaleString('en-US')}` : `${amount.toLocaleString('en-US')}`
-            return (
-              <tr key={id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="px-6 py-4">{id}</td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{action}</th>
-                <td scope="row" className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap ${Number(amount) > 0 ? 'dark:text-green-400' : Number(amount) < 0 ? 'dark:text-red-500' : 'dark:text-yellow-500'}`}>
-                  {amountText}
-                </td>
-                <td className="px-6 py-4">{memberCreatedAt}</td>
-                <td scope="row" className='flex gap-2 items-center justify-end pe-4'>
-                  <EditBtn id={id} typeToEdit={TypeToAction.BALANCE} />
-                  <DeleteBtn id={id} typeToDelete={TypeToAction.BALANCE} />
-                </td>
-              </tr>
-            )
-          })
-        }
-      </tbody>
-    </table>
-      <Pagination paginationPages={paginationPages} prev={prev} next={next} page={page} search={searchValue} />
+    <div className="relative z-10 overflow-x-auto my-6">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs uppercase bg-background dark:bg-background">
+          <tr className='text-white [&>th]:py-4 [&>th]:px-6'>
+            <th scope="col">
+              Id
+            </th>
+            <th scope="col">
+              <OrderByName />
+            </th>
+            <th scope="col">
+              Amount
+            </th>
+            <th scope="col">
+              <OrderByDate text={TEXT_TABLE_DATE[0]} />
+            </th>
+            <th scope="col">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody className='bg-white'>
+          {
+            filteredData?.map(({ id, action, amount, date }: BalanceDb) => {
+              const [memberCreatedAt] = new Date(date).toISOString().split('T')
+              const amountText = amount > 0 ? `+${amount.toLocaleString('en-US')}` : `${amount.toLocaleString('en-US')}`
+              return (
+                <tr key={id} className="bg-white border-b text-black">
+                  <td className="p-6">{id}</td>
+                  <th scope="row" className="p-6 font-semibold text-black">{action}</th>
+                  <td scope="row" className={`p-6 font-medium text-black ${Number(amount) > 0 ? 'text-green-400' : Number(amount) < 0 ? 'text-red-500' : 'text-yellow-500'}`}>
+                    {amountText}
+                  </td>
+                  <td className="p-6 text-gray-500">{memberCreatedAt}</td>
+                  <td scope="row" className='flex gap-2 items-center'>
+                    <EditBtn id={id} typeToEdit={TypeToAction.BALANCE} />
+                    <DeleteBtn id={id} typeToDelete={TypeToAction.BALANCE} />
+                  </td>
+                </tr>
+              )
+            })
+          }
+        </tbody>
+      </table>
     </div>
   )
 }

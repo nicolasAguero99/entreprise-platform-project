@@ -53,3 +53,5 @@ export const TITLES_CARDS_HEADER = [
   { type: 'latestInvestment', title: 'Last investment' },
   { type: 'latestAction', title: 'Last action' }
 ]
+
+export const TEXT_TABLE_DATE = ['Date', 'Invested In']

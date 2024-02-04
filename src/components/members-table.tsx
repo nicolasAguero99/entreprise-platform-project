@@ -3,30 +3,58 @@
 // Components
 import DeleteBtn from '@/components/delete-btn'
 import EditBtn from '@/components/edit-btn'
+import OrderByName from './order-by-name'
+import OrderByDate from './order-by-date'
 
 // Types
 import { TypeToAction, type MembersDb } from '@/types/types.d'
 
+// Constants
+import { TEXT_TABLE_DATE } from '@/constants/constants'
+
 export default function MembersTable ({ data }: { data: MembersDb[] | any }): JSX.Element {
   return (
-    <ul className="flex flex-col divide-y-[1px] divide-gray-300 py-4">
-      {
-        data?.map(({ id, name, email, createdAt }: MembersDb) => {
-          const [memberCreatedAt] = new Date(createdAt).toISOString().split('T')
-          return (
-            <li key={id} className="flex text-center items-center gap-4 py-2">
-              <small className="w-8 text-lg font-medium">{id}</small>
-              <span className="w-28 flex-1 text-lg font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">{name}</span>
-              <span className="w-28 flex-1 text-lg font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">{email}</span>
-              <span className="w-28 flex-1 text-lg font-medium overflow-x-hidden whitespace-nowrap text-ellipsis">{memberCreatedAt}</span>
-              <div className='flex items-center gap-2'>
-                <EditBtn id={id} typeToEdit={TypeToAction.MEMBERS} />
-                <DeleteBtn id={id} typeToDelete={TypeToAction.MEMBERS} />
-              </div>
-            </li>
-          )
-        })
-      }
-    </ul>
+    <div className="relative z-10 my-6">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs uppercase bg-background dark:bg-background">
+          <tr className='text-white [&>th]:py-4 [&>th]:px-6'>
+            <th scope="col" className="px-6 py-3">
+              Id
+            </th>
+            <th scope="col" className="px-6 py-3">
+              <OrderByName />
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Email
+            </th>
+            <th scope="col" className="px-6 py-3">
+              <OrderByDate text={TEXT_TABLE_DATE[0]} />
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody className='bg-white'>
+          {
+            data?.map(({ id, name, email, createdAt }: MembersDb) => {
+              const [memberCreatedAt] = new Date(createdAt).toISOString().split('T')
+              return (
+                <tr key={id} className="bg-white border-b text-black">
+                  <td className="p-6">{id}</td>
+                  <th scope="row" className="p-6 font-semibold text-gray-900 whitespace-nowrap">{name}</th>
+                  <td className="p-6 capitalize text-gray-500">{email}</td>
+                  <td className="p-6 capitalize text-gray-500">{memberCreatedAt}</td>
+                  <td className='flex items-center gap-2'>
+                    <EditBtn id={id} typeToEdit={TypeToAction.MEMBERS} />
+                    <DeleteBtn id={id} typeToDelete={TypeToAction.MEMBERS} />
+                  </td>
+                </tr>
+              )
+            })
+          }
+        </tbody>
+      </table>
+    </div>
   )
 }

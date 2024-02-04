@@ -56,12 +56,12 @@ export default function ChartBalance ({ balance }: { balance: Array<{ amount: nu
   }
 
   return (
-    <div className='relative flex flex-col gap-6 w-full h-full py-10 px-6'>
+    <div className='relative z-10 flex flex-col gap-6 w-full h-full py-10 px-6'>
       <h2 className='font-semibold text-xl text-center'>Percentage of balance</h2>
       <div className='w-[200px] h-[200px] mx-auto'>
         <Doughnut data={data} options={options} />
       </div>
-      <div className='w-full flex justify-between gap-4'>
+      <div className='w-full flex justify-between gap-4 xl:px-12'>
         <div className='font-bold text-green-400 text-3xl'>{remainingPercentage}%</div>
         <div className='font-bold text-red-400 text-3xl'>{percentage}%</div>
       </div>

@@ -1,35 +1,44 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
 // Constants
 import { SIDEBAR_LINKS } from '@/constants/constants'
 
 export default function Sidebar (): JSX.Element {
   const pathname = usePathname()
+  const [showMenu, setShowMenu] = useState(false)
+
+  const handleToggleMenu = (): void => { setShowMenu(!showMenu) }
 
   return (
-    <aside
-      id='default-sidebar'
-      className='z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0'
-    >
-      <div className='h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800'>
-        <ul className='space-y-2 font-medium'>
-          {
-            SIDEBAR_LINKS.map(link => (
-              <li key={link.name}>
-                <Link
-                  href={link.path}
-                  className='flex items-center p-2 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group'
-                  >
-                  <span className={`${pathname === link.path ? 'text-pink-600' : ''} ms-3`}>{link.name}</span>
-                </Link>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </aside>
+    <div className='fixed max-lg:top-0 max-lg:left-0 lg:relative z-50'>
+      <button onClick={handleToggleMenu} className='block lg:hidden ms-8 mt-8'>
+        <Image src='/menu-icon.svg' alt='open menu' width={34} height={34} />
+      </button>
+      <aside className={`${showMenu ? 'block' : 'hidden'} z-40 w-64 h-screen transition-transform relative max-lg:fixed max-lg:top-0 max-lg:left-0 lg:block`}>
+        <nav className='h-full px-3 py-4 overflow-y-auto bg-background'>
+          <ul className='space-y-2 font-medium text-white'>
+            <div className='flex justify-between items-center gap-4 p-2 mt-2 mb-6'>
+              <li className='text-xl font-semibold'>Your company</li>
+              <button onClick={handleToggleMenu} className='block lg:hidden'><Image src='/cross-icon.svg' alt='close menu' width={25} height={25} /></button>
+            </div>
+            {
+              SIDEBAR_LINKS.map(link => (
+                <li key={link.name}>
+                  <Link href={link.path} className='flex items-center p-2 rounded-lg text-white hover:bg-white/50'>
+                    <span className={`${pathname === link.path ? 'text-primary' : ''} ms-3`}>{link.name}</span>
+                  </Link>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </aside>
+      <div onClick={handleToggleMenu} className={`${showMenu ? 'block' : 'hidden'} w-full h-full fixed top-0 left-0 bg-black/30 cursor-pointer z-20`}></div>
+    </div>
   )
 }

@@ -12,7 +12,7 @@ export async function GET (): Promise<NextResponse> {
     acc += amount
     return acc
   }, 0)
-  const dataFormated = dataReduced.toLocaleString('en-US')
+  const dataFormated = dataReduced
 
   return NextResponse.json(dataFormated)
 }

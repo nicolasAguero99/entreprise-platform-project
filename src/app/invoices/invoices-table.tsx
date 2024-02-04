@@ -1,4 +1,5 @@
-// Comments
+// Components
+import OrderByName from '@/components/order-by-name'
 import PayButton from '@/components/pay-button'
 
 // Types
@@ -6,40 +7,38 @@ import { type InvoicesDb } from '@/types/types'
 
 export default function InvoicesTable ({ data }: { data: InvoicesDb[] }): JSX.Element {
   return (
-    <div className="relative overflow-x-auto my-6">
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead className="text-xs text-gray-700 uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" className="px-6 py-3">
+    <div className="relative z-20 overflow-x-auto my-6">
+    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead className="text-xs uppercase bg-background dark:bg-background">
+        <tr className='text-white [&>th]:py-4 [&>th]:px-6'>
+          <th scope="col">
             Id
           </th>
-          <th scope="col" className="px-6 py-3">
-            Name
+          <th scope="col">
+            <OrderByName />
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col">
             Position
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col">
             Salary
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col">
             State
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className='bg-white'>
         {
           data?.map(({ id, name, position, salary, paid }: InvoicesDb) => {
             const salaryFormat = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(salary)
-            const paidText = paid ? 'Paid' : 'Pending'
             return (
-              <tr key={id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td className="px-6 py-4">{id}</td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{name}</th>
-                <td className="px-6 py-4 capitalize">{position}</td>
-                <td className="px-6 py-4">{salaryFormat}</td>
-                <td className="px-6 py-4">{paidText}</td>
-                <td className="px-6 py-4"><PayButton memberId={id} paid={paid} /></td>
+              <tr key={id} className="bg-white border-b text-black">
+                <td className="p-6">{id}</td>
+                <th scope="row" className="p-6 font-semibold text-gray-900 whitespace-nowrap">{name}</th>
+                <td className="p-6 capitalize text-gray-500">{position}</td>
+                <td className="p-6 text-gray-500">{salaryFormat}</td>
+                <td className="p-6"><PayButton memberId={id} paid={paid} /></td>
               </tr>
             )
           })

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 export default function InputSearchMember (): JSX.Element {
@@ -21,11 +21,15 @@ export default function InputSearchMember (): JSX.Element {
     router.replace(`${pathname}?${params.toString()}`)
   }
 
-  useEffect(() => {
-    console.log('search', search)
-  }, [search])
-
   return (
-    <input onChange={handleTypeSearch} type="search" id="search-dropdown" className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search members" value={search} />
+    <div className='w-full h-fit relative z-10'>
+      <input onChange={handleTypeSearch} type="search" id="search-dropdown" className="block p-2.5 w-full z-20 text-sm text-white rounded-lg bg-background placeholder:text-white/70" placeholder="Type to search..." value={search} />
+      <button onClick={(e) => { e.preventDefault() }} type="submit" className="absolute top-0 bottom-0 right-1 p-2.5">
+        <svg className="w-4 h-4" aria-hidden="true" fill="none" viewBox="0 0 20 20">
+          <path stroke="#ffffff" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+        </svg>
+        <span className="sr-only">Search</span>
+      </button>
+    </div>
   )
 }
