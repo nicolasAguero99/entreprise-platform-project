@@ -1,5 +1,5 @@
 // Components
-import FormInvestor from '../../form-balance'
+import FormInvestor from '../../../../components/balance/form-balance'
 
 export default function AddPage ({ params }: { params: { id: string } }): JSX.Element {
   const { id } = params

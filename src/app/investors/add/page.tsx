@@ -1,5 +1,5 @@
 // Components
-import FormInvestor from '../form-investor'
+import FormInvestor from '../../../components/investors/form-investor'
 
 export default function AddPage (): JSX.Element {
   return (

@@ -7,8 +7,8 @@ import { type SearchParams, type InvestorsAndPagination, type OrderTypes } from 
 // Components
 import InputSearchMember from '@/components/input-search-member'
 import Pagination from '@/components/pagination'
-import InvestorsTable from './investors-table'
-import SelectDate from './select-date'
+import InvestorsTable from '../../components/investors/investors-table'
+import SelectDate from '../../components/investors/select-date'
 
 // Services
 import { getInvestorsAndPages } from '@/lib/services'

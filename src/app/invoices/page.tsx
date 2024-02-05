@@ -7,7 +7,7 @@ import { type SearchParams, type OrderTypes, type InvoicesDb } from '@/types/typ
 // Components
 import InputSearchMember from '@/components/input-search-member'
 import Pagination from '@/components/pagination'
-import InvoicesTable from './invoices-table'
+import InvoicesTable from '../../components/invoices/invoices-table'
 
 // Services
 import { getMembersAndPages } from '@/lib/services'

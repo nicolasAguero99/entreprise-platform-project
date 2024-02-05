@@ -1,5 +1,5 @@
 // Components
-import FormBalance from '../form-balance'
+import FormBalance from '../../../components/balance/form-balance'
 
 export default function AddPage (): JSX.Element {
   return (

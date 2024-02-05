@@ -2,14 +2,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 // Components
-import BalanceTabs from './balance-tabs'
+import BalanceTabs from '../../components/balance/balance-tabs'
 
 // Types
 import { type OrderTypes, type TabsBalanceParams, type BalanceAndPagination } from '@/types/types'
 
 // Components
 import InputSearchMember from '@/components/input-search-member'
-import BalanceTable from './balance-table'
+import BalanceTable from '../../components/balance/balance-table'
 import Pagination from '@/components/pagination'
 
 // Services

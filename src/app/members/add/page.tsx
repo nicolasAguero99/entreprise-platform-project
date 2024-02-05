@@ -1,5 +1,5 @@
 // Components
-import FormMember from '../form-member'
+import FormMember from '../../../components/members/form-member'
 
 export default function AddPage (): JSX.Element {
   return (

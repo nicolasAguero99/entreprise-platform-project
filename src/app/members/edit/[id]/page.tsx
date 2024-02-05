@@ -1,4 +1,4 @@
-import FormMember from '../../form-member'
+import FormMember from '../../../../components/members/form-member'
 
 export default function MembersPage ({ params }: { params: { id: string } }): JSX.Element {
   const { id } = params
