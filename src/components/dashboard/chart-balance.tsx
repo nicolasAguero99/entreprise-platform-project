@@ -3,11 +3,10 @@
 import { Doughnut } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
-// Services
+// Constants
+import { COLORS_CHART } from '@/constants/constants'
 
 export default function ChartBalance ({ balance }: { balance: Array<{ amount: number }> }): JSX.Element {
-  console.log('balance', balance)
-
   ChartJS.register(ArcElement, Tooltip, Legend)
 
   const { incomes, expenses } = balance.reduce(
@@ -35,8 +34,8 @@ export default function ChartBalance ({ balance }: { balance: Array<{ amount: nu
       label: 'Amount of balance',
       data: [incomes, expenses],
       backgroundColor: [
-        'lightgreen',
-        'red'
+        COLORS_CHART[0],
+        COLORS_CHART[1]
       ],
       hoverOffset: 4,
       borderWidth: 4,
@@ -57,13 +56,13 @@ export default function ChartBalance ({ balance }: { balance: Array<{ amount: nu
 
   return (
     <div className='relative z-10 flex flex-col gap-6 w-full h-full py-10 px-6'>
-      <h2 className='font-semibold text-xl text-center'>Percentage of balance</h2>
-      <div className='w-[200px] h-[200px] mx-auto'>
+      <h2 className='font-semibold text-xl text-center min-h-[58px]'>Percentage of balance</h2>
+      <div className='max-[340px]:hidden w-[200px] h-[200px] mx-auto max-sm:px-4'>
         <Doughnut data={data} options={options} />
       </div>
-      <div className='w-full flex justify-between gap-4 xl:px-12'>
-        <div className='font-bold text-green-400 text-3xl'>{remainingPercentage}%</div>
-        <div className='font-bold text-red-400 text-3xl'>{percentage}%</div>
+      <div className='w-full flex justify-center sm:justify-between flex-wrap gap-4 xl:px-12'>
+        <div className='font-bold text-background text-3xl'>{remainingPercentage}%</div>
+        <div className='font-bold text-primary text-3xl'>{percentage}%</div>
       </div>
     </div>
   )

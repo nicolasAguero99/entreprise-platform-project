@@ -9,7 +9,7 @@ export default function DropdownAmountDate ({ amountByDate }: { amountByDate: Ar
   }
 
   return (
-    <td onClick={handleToggleDropdown} scope="row" className={`${amountByDate.length > 1 ? 'cursor-pointer' : ''} relative z-10 px-6 py-4 font-medium text-gray-500 whitespace-nowrap`}>
+    <td onClick={handleToggleDropdown} scope="row" className={`${amountByDate.length > 1 ? 'cursor-pointer' : ''} max-md:hidden relative px-6 py-4 font-medium text-gray-500 whitespace-nowrap`}>
       <span className='flex gap-2 items-center'>
         {
           amountByDate.length > 1
@@ -26,7 +26,7 @@ export default function DropdownAmountDate ({ amountByDate }: { amountByDate: Ar
       </span>
       {
         amountByDate.length > 1 && (
-          <div className={`${!showDropdown ? 'hidden' : ''} absolute w-full top-12 -left-6 bg-white shadow-md rounded-lg z-20`}>
+          <div className={`${!showDropdown ? 'hidden' : ''} absolute w-full top-12 -left-6 bg-white shadow-md rounded-lg z-40`}>
             <ul className='divide-y divide-gray-300 text-center px-6'>
               {
                 amountByDate.map((item, index: number) => (

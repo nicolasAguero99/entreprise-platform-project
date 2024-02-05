@@ -14,19 +14,19 @@ import { TEXT_TABLE_DATE } from '@/constants/constants'
 export default function InvestorsTable ({ data, month }: { data: InvestorsDb[] | any, month: Months }): JSX.Element {
   return (
     <div className="relative z-10 my-6">
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto">
         <thead className="text-xs uppercase bg-background dark:bg-background">
           <tr className='text-white [&>th]:py-4 [&>th]:px-6'>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="max-sm:hidden px-6 py-3">
               Id
             </th>
             <th scope="col" className="px-6 py-3">
               <OrderByName />
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="max-[420px]:hidden px-6 py-3">
               Amount
             </th>
-            <th scope="col" className="px-6 py-3">
+            <th scope="col" className="max-md:hidden px-6 py-3">
               <OrderByDate text={TEXT_TABLE_DATE[1]} />
             </th>
             <th scope="col" className="px-6 py-3">
@@ -49,9 +49,9 @@ export default function InvestorsTable ({ data, month }: { data: InvestorsDb[] |
               const amountValue = Number(totalAmountInvested) > 0 ? `+${totalAmountInvested}` : totalAmountInvested
               return (
                 <tr key={id} className="bg-white border-b text-black">
-                  <td className="p-6">{id}</td>
+                  <td className="max-sm:hidden p-6">{id}</td>
                   <th scope="row" className="p-6 font-medium text-gray-900 whitespace-nowrap">{name}</th>
-                  <td scope="row" className={`p-6 font-medium text-gray-900 whitespace-nowrap ${Number(amountValue) > 0 ? 'dark:text-green-400' : Number(amountValue) < 0 ? 'dark:text-red-500' : 'dark:text-yellow-500'}`}>
+                  <td scope="row" className={`max-[420px]:hidden p-6 font-medium text-gray-900 whitespace-nowrap ${Number(amountValue) > 0 ? 'dark:text-green-400' : Number(amountValue) < 0 ? 'dark:text-red-500' : 'dark:text-yellow-500'}`}>
                     {amountValue}
                   </td>
                   <DropdownAmountDate amountByDate={amountByDate} />

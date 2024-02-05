@@ -16,11 +16,11 @@ export default function Sidebar (): JSX.Element {
 
   return (
     <div className='fixed max-lg:top-0 max-lg:left-0 lg:relative z-50'>
-      <button onClick={handleToggleMenu} className='block lg:hidden ms-8 mt-8'>
+      <button onClick={handleToggleMenu} className='fixed top-0 left-0 lg:hidden ms-8 mt-8'>
         <Image src='/menu-icon.svg' alt='open menu' width={34} height={34} />
       </button>
-      <aside className={`${showMenu ? 'block' : 'hidden'} z-40 w-64 h-screen transition-transform relative max-lg:fixed max-lg:top-0 max-lg:left-0 lg:block`}>
-        <nav className='h-full px-3 py-4 overflow-y-auto bg-background'>
+      <aside className={`${showMenu ? 'block' : 'hidden'} z-40 w-64 h-screen transition-transform relative top-0 max-lg:left-0 lg:block`}>
+        <nav className='fixed w-56 h-screen px-3 py-4 overflow-y-auto bg-background'>
           <ul className='space-y-2 font-medium text-white'>
             <div className='flex justify-between items-center gap-4 p-2 mt-2 mb-6'>
               <li className='text-xl font-semibold'>Your company</li>
@@ -29,8 +29,8 @@ export default function Sidebar (): JSX.Element {
             {
               SIDEBAR_LINKS.map(link => (
                 <li key={link.name}>
-                  <Link href={link.path} className='flex items-center p-2 rounded-lg text-white hover:bg-white/50'>
-                    <span className={`${pathname === link.path ? 'text-primary' : ''} ms-3`}>{link.name}</span>
+                  <Link href={link.path} className={`${pathname === link.path ? 'bg-white/20' : ''} flex items-center p-2 rounded-lg text-white hover:bg-white/20`}>
+                    <span className='ms-3'>{link.name}</span>
                   </Link>
                 </li>
               ))

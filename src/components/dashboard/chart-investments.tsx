@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
 
 // Constants
-import { MONTHS } from '@/constants/constants'
+import { COLORS_CHART, MONTHS } from '@/constants/constants'
 
 export default function ChartInvestments ({ investments }: { investments: number[] }): JSX.Element {
   ChartJS.register(
@@ -25,8 +25,8 @@ export default function ChartInvestments ({ investments }: { investments: number
       {
         label: 'Investments',
         data: investments,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)'
+        borderColor: COLORS_CHART[1],
+        backgroundColor: COLORS_CHART[0]
       }
     ]
   }
@@ -51,7 +51,7 @@ export default function ChartInvestments ({ investments }: { investments: number
   }
 
   return (
-    <div className='w-full h-[280px] flex flex-col items-center gap-2 bg-white p-4 rounded-lg shadow-md'>
+    <div className='max-sm:hidden w-full h-[280px] flex flex-col items-center gap-2 bg-white p-4 rounded-lg shadow-md'>
       <Line style={{ width: '100px', height: '100px' }} data={data} options={options} />
     </div>
   )

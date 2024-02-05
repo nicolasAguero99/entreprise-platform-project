@@ -18,14 +18,7 @@
 
 body {
   @apply text-slate-900;
-  background-color: #FEF5EF;
-  /* color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb)); */
+  background-color: #F5F5F5;
 }
 
 @keyframes skeleton {
