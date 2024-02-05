@@ -28,7 +28,7 @@ export default async function Dashboard (): Promise<JSX.Element> {
           <CardDataHeader data={latestAction} type={'latestAction'} />
         </section>
         <section className="flex flex-col gap-4">
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center bg-white rounded-lg shadow-md max-md:divide-y-2 lg:divide-x-2 divide-gray-100 py-4 max-sm:px-2 max-lg:px-10 overflow-x-auto'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center bg-white rounded-lg shadow-md max-md:divide-y-2 lg:divide-x-2 divide-gray-100 py-4 max-sm:px-2 max-lg:px-10'>
             <ChartStatusPaid statePaids={statePaids} />
             <ChartBalance balance={balance} />
             <div className="flex items-center justify-center md:col-span-2 lg:col-span-1">

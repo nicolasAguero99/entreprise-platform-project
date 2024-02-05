@@ -14,12 +14,11 @@ export default function OrderByName (): JSX.Element {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const params = new URLSearchParams(searchParams)
-  const isActive = (params.get('order') !== '' || params.get('order') !== undefined) ?? false
-
+  const isActive = params.get('order') !== null ?? false
   const [active, setActive] = useState(isActive)
 
   const handleOrderBy = (action: OrderTypes): void => {
-    active ? params.set('order', action) : params.delete('order')
+    active ? params.delete('order') : params.set('order', action)
     router.replace(`${pathname}?${params.toString()}`)
     setActive(!active)
   }

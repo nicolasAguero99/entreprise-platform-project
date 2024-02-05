@@ -32,9 +32,9 @@ export default async function MembersPage ({ searchParams }: { searchParams: Sea
               </div>
             </div>
           </form>
-            <Link href='members/add' className='bg-background text-xl text-white rounded-lg px-4 py-3'>
-              <Image src="/plus-icon.svg" alt="add" width={20} height={20} />
-            </Link>
+          <Link href='members/add' className='bg-background text-xl text-white rounded-lg px-4 py-3'>
+            <Image src="/plus-icon.svg" alt="add" width={20} height={20} />
+          </Link>
         </div>
         <MembersTable data={data} />
         <Pagination paginationPages={paginationPages} prev={prev} next={next} page={page} search={searchValue} />
