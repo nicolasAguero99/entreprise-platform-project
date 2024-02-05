@@ -31,7 +31,7 @@ export default function ChartInvestments ({ investments }: { investments: number
     ]
   }
 
-  const options = {
+  const options: any = {
     responsive: true,
     plugins: {
       title: {

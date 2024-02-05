@@ -30,7 +30,7 @@ export default function ChartProfitable ({ profitable }: { profitable: number[] 
     ]
   }
 
-  const options = {
+  const options: any = {
     responsive: true,
     plugins: {
       title: {
