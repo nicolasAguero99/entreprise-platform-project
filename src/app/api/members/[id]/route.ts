@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-// import { revalidatePath } from 'next/cache'
 
 // Lib
 import { prisma } from '@/lib/prisma'
@@ -16,7 +15,6 @@ export async function PUT (req: any, { params }: any): Promise<NextResponse> {
   try {
     const rawData = await req.json()
     const data = memberSchema.parse(rawData)
-    console.log('data', data)
     const updatedMember = await prisma.members.update({ where: { id: Number(id) }, data })
     return NextResponse.json(updatedMember)
   } catch (error) {

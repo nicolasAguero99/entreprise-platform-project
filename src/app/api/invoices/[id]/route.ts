@@ -14,13 +14,7 @@ export async function PUT (req: any, { params }: any): Promise<NextResponse> {
   const { id } = await params
   try {
     const data = await req.json()
-
-    console.log('data', data)
-
     const updatedMember = await prisma.members.update({ where: { id: Number(id) }, data })
-
-    console.log('updatedMember', updatedMember)
-
     return NextResponse.json(updatedMember)
   } catch (error) {
     return NextResponse.json(error)

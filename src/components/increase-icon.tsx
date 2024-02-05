@@ -1,6 +1,4 @@
 export default function IncreaseIcon ({ isIncrease }: { isIncrease: boolean }): JSX.Element {
-  console.log('isIncrease', isIncrease)
-
   const color = isIncrease ? 'fill-positive stroke-positive' : 'fill-negative stroke-negative'
   const rotate = isIncrease ? 'rotate-0' : 'scale-y-[-1]'
 

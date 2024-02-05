@@ -13,13 +13,7 @@ export async function PUT (req: any, { params }: any): Promise<NextResponse> {
   const { id } = await params
   try {
     const data = await req.json()
-
-    console.log('data', data)
-
     const updatedBalance = await prisma.balance.update({ where: { id: Number(id) }, data })
-
-    console.log('updatedBalance', updatedBalance)
-
     return NextResponse.json(updatedBalance)
   } catch (error) {
     return NextResponse.json(error)

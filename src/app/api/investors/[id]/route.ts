@@ -17,7 +17,6 @@ export async function PUT (req: any, { params }: any): Promise<NextResponse> {
     const rawData = await req.json()
     const data = investorsSchema.parse(rawData)
     const { name, idHistory, amount, investedIn } = data
-    console.log('data', data)
     const updatedInvestor = await prisma.investors.update({ where: { id: Number(id) }, data: { name } })
     const updateHistory = await prisma.investorsHistory.update({ where: { id: Number(idHistory) }, data: { amount, investedIn } })
     return NextResponse.json({ updatedInvestor, updateHistory })

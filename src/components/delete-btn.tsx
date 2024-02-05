@@ -25,10 +25,8 @@ export default function DeleteBtn ({ id, typeToDelete }: { id: number, typeToDel
         'Content-Type': 'application/json'
       }
     })
-    console.log('res', res)
     if (res.ok) {
       router.refresh()
-      console.log('ok')
     } else {
       console.log('error')
     }

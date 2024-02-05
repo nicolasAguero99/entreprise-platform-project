@@ -4,7 +4,7 @@
 import { API_URL, PAGINATION_SLICE_NUMBER } from '@/constants/constants'
 
 // Types
-import { type BalanceAndPagination, type MembersDb, type PaginationPages, OrderTypes, type InvestorsDb, type InvestorsHistoryDb, type InvestorsAndPagination, type BalanceDb, type PositionCount } from '@/types/types.d'
+import { type BalanceAndPagination, type MembersDb, type PaginationPages, OrderTypes, type InvestorsDb, type InvestorsHistoryDb, type InvestorsAndPagination, type BalanceDb, type MembersAndPaginationProps } from '@/types/types.d'
 
 export async function addMember (e: React.FormEvent<HTMLFormElement>): Promise<void> {
   e.preventDefault()
@@ -56,11 +56,7 @@ export const getMembersByName = async (searchValue: string): Promise<MembersDb[]
 
 export const getInvestorsByName = async (searchValue: string): Promise<InvestorsDb[]> => {
   const data = await getInvestors()
-
-  console.log('data', data)
-
   const dataFiltered = data.filter((investor) => {
-    console.log('investor.name', investor.name)
     return removeAccents(investor.name.toLocaleLowerCase()).includes(removeAccents(searchValue.toLocaleLowerCase()))
   })
   return dataFiltered
@@ -80,9 +76,8 @@ export const getPagesPagination = (data: any): PaginationPages => {
   return paginationPages
 }
 
-export const getDataSorted = async (data: any, orderBy: string): Promise<any> => {
+export const getDataSorted = async (data: MembersDb[] | InvestorsDb[] | BalanceDb[], orderBy: string): Promise<any> => {
   const { DATE_ORDER, NAME_ORDER } = OrderTypes
-  // const data = await getMembers()
   let dataSorted: MembersDb[] | InvestorsDb[] | BalanceDb[] | [] = []
   if (orderBy === DATE_ORDER) {
     dataSorted = data.sort((a, b) => {
@@ -92,14 +87,16 @@ export const getDataSorted = async (data: any, orderBy: string): Promise<any> =>
     })
   } else if (orderBy === NAME_ORDER) {
     dataSorted = data.sort((a, b) => {
-      if (a.name !== undefined && b.name !== undefined) {
+      if ('name' in a && 'name' in b) {
         const nameA = a.name.toLowerCase()
         const nameB = b.name.toLowerCase()
         return nameA.localeCompare(nameB)
-      } else {
+      } else if ('action' in a && 'action' in b) {
         const nameA = a.action.toLowerCase()
         const nameB = b.action.toLowerCase()
         return nameA.localeCompare(nameB)
+      } else {
+        return 0
       }
     })
   } else {
@@ -108,20 +105,19 @@ export const getDataSorted = async (data: any, orderBy: string): Promise<any> =>
   return dataSorted
 }
 
-export const getMembersAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<MembersAndPagination> => {
-  // const data = await getMembers()
+export const getMembersAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<Omit<MembersAndPaginationProps, 'search' | 'page'>> => {
   const data = await getMembersByName(searchValue)
   const dataSorted = await getDataSorted(data, orderBy)
   const start = currentPage > 1 ? currentPage * PAGINATION_SLICE_NUMBER - PAGINATION_SLICE_NUMBER : 0
   const end = start + PAGINATION_SLICE_NUMBER
-  const dataSliced = dataSorted.slice(start, end)
+  const dataSliced: MembersDb[] = dataSorted.slice(start, end)
   const paginationPages = getPagesPagination(data)
   const prev = currentPage > 1 ? currentPage - 1 : 1
   const next = currentPage < paginationPages.length ? currentPage + 1 : paginationPages.length
   return { data: dataSliced, paginationPages, prev, next }
 }
 
-export const getInvestorsAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<InvestorsAndPagination> => {
+export const getInvestorsAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<Omit<InvestorsAndPagination, 'search' | 'page'>> => {
   // const data = await getMembers()
   const data = await getInvestorsByName(searchValue)
   const dataSorted = await getDataSorted(data, orderBy)
@@ -134,7 +130,7 @@ export const getInvestorsAndPages = async (searchValue: string, currentPage: num
   return { data: dataSliced, paginationPages, prev, next }
 }
 
-export const getBalanceAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<BalanceAndPagination> => {
+export const getBalanceAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<Omit<BalanceAndPagination, 'search' | 'page'>> => {
   // const data = await getMembers()
   const data = await getBalanceByName(searchValue)
   const dataSorted = await getDataSorted(data, orderBy)

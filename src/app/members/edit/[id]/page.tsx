@@ -1,7 +1,6 @@
 import FormMember from '../../form-member'
 
 export default function MembersPage ({ params }: { params: { id: string } }): JSX.Element {
-  console.log('params', params)
   const { id } = params
 
   return (

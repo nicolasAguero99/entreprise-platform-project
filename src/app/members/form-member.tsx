@@ -6,9 +6,6 @@ import { useEffect, useState } from 'react'
 // Constants
 import { API_URL, MSG_ADDING, MSG_EDITING } from '@/constants/constants'
 
-// Types
-import { type MembersDb } from '@/types/types'
-
 export default function FormMember ({ memberId = null }: { memberId?: string | null }): JSX.Element {
   const [isSending, setIsSending] = useState('')
   const [member, setMember] = useState({ photo: '', name: '', email: '', position: '', salary: 0 })
@@ -19,8 +16,8 @@ export default function FormMember ({ memberId = null }: { memberId?: string | n
     if (memberId !== null) {
       const getMember = async (): Promise<void> => {
         const res = await fetch(`${API_URL}/members/${memberId}`, { cache: 'no-cache' })
-        const data: MembersDb = await res.json()
-        setMember({ ...data })
+        const data: { photo: string, name: string, email: string, position: string, salary: number } = await res.json()
+        setMember(data)
       }
 
       void getMember()
@@ -43,7 +40,6 @@ export default function FormMember ({ memberId = null }: { memberId?: string | n
       photo: '',
       salary: Number(formData.get('salary'))
     }
-    console.log('data', data)
     setIsSending(MSG_ADDING)
     let res = null
 
@@ -56,7 +52,6 @@ export default function FormMember ({ memberId = null }: { memberId?: string | n
         }
       })
     } else {
-      console.log('data', data)
       setIsSending(MSG_EDITING)
       res = await fetch(`${API_URL}/members/${memberId}`, {
         method: 'PUT',

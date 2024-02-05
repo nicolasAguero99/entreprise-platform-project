@@ -16,7 +16,6 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
   const textBtn = balanceId === null ? 'Add' : 'Edit'
 
   useEffect(() => {
-    console.log('balanceId', balanceId)
     if (balanceId !== null) {
       const getBalance = async (): Promise<void> => {
         const res = await fetch(`${API_URL}/balance/${balanceId}`, { cache: 'no-cache' })
@@ -25,17 +24,12 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
           ...data,
           date: String(data.date).split('T')[0]
         }
-        console.log('formattedData', data)
         setBalance(formattedData)
       }
 
       void getBalance()
     }
   }, [balanceId])
-
-  useEffect(() => {
-    console.log('balance', balance)
-  }, [balance])
 
   const handleChangeValues = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target
@@ -53,7 +47,6 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
       amount: Number(Object.fromEntries(formData).amount),
       date: new Date(String(Object.fromEntries(formData).date)).toISOString()
     }
-    console.log('data', data)
     setIsSending(MSG_ADDING)
     let res = null
 
@@ -66,7 +59,6 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
         }
       })
     } else {
-      console.log('data', data)
       setIsSending(MSG_EDITING)
       res = await fetch(`${API_URL}/balance/${balanceId}`, {
         method: 'PUT',

@@ -13,7 +13,6 @@ export default function InputSearchMember (): JSX.Element {
     const params = new URLSearchParams(searchParams)
     const page = params.get('page')
     setSearch(e.target.value)
-    console.log('page', page)
     if (page === null && e.target.value.trim() !== '') {
       params.set('page', '1')
     }

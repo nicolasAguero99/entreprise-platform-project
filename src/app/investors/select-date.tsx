@@ -16,7 +16,6 @@ export default function SelectDate ({ currentMonth }: { currentMonth: Months }):
   const params = new URLSearchParams(searchParams)
 
   const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
-    console.log('date', e.target.value)
     const month = e.target.value
     if (month !== '0') {
       router.push(`?${createQueryParams(searchParams, 'month', month)}`)

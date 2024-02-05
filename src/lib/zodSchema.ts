@@ -1,13 +1,5 @@
 import { z } from 'zod'
 
-// const photoObjectSchema = z.object({
-//   url: z.string(),
-//   metadata: z.object({
-//     size: z.number(),
-//     type: z.string()
-//   })
-// })
-
 export const memberSchema = z.object({
   photo: z.string(),
   name: z.string(),
@@ -23,12 +15,10 @@ export const investorsSchema = z.object({
   amount: z.number(),
   idHistory: z.number().optional(),
   investedIn: z.string()
-  // investorId: z.number().optional()
 })
 
 export const investorsHistorySchema = z.object({
   investorId: z.number(),
-  // investor: z.string(),
   date: z.date(),
   amount: z.number(),
   investedIn: z.date(),
