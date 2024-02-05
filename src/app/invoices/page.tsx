@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 // Types
-import { type SearchParams, type InvoicesAndPaginationProps, type OrderTypes } from '@/types/types.d'
+import { type SearchParams, type OrderTypes, type InvoicesDb } from '@/types/types.d'
 
 // Components
 import InputSearchMember from '@/components/input-search-member'
@@ -19,7 +19,7 @@ export default async function InvoicesPage ({ searchParams }: { searchParams: Se
 
   const orderValue = order ?? ''
   const searchValue: OrderTypes | string = search ?? ''
-  const { data, paginationPages, prev, next }: InvoicesAndPaginationProps = await getMembersAndPages(searchValue, Number(page), orderValue)
+  const { data, paginationPages, prev, next } = await getMembersAndPages(searchValue, Number(page), orderValue)
 
   return (
     <main className="flex flex-col flex-1 px-8 py-4">
@@ -37,7 +37,7 @@ export default async function InvoicesPage ({ searchParams }: { searchParams: Se
             <Image src="/plus-icon.svg" alt="add" width={20} height={20} />
           </Link>
         </div>
-        <InvoicesTable data={data} />
+        <InvoicesTable data={data as InvoicesDb[]} />
         <Pagination paginationPages={paginationPages} prev={prev} next={next} page={page} search={searchValue} />
       </section>
     </main>

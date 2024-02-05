@@ -47,6 +47,12 @@ export type PaginationPages = number[]
 
 export interface PaginationParams {
   paginationPages: PaginationPages
+  prev: number
+  next: number
+}
+
+export interface PaginationProps {
+  paginationPages: PaginationPages
   page: string
   prev: number
   next: number

@@ -4,7 +4,7 @@
 import { API_URL, PAGINATION_SLICE_NUMBER } from '@/constants/constants'
 
 // Types
-import { type BalanceAndPagination, type MembersDb, type PaginationPages, OrderTypes, type InvestorsDb, type InvestorsHistoryDb, type InvestorsAndPagination, type BalanceDb, type MembersAndPaginationProps } from '@/types/types.d'
+import { type BalanceAndPagination, type MembersDb, type PaginationPages, OrderTypes, type InvestorsDb, type InvestorsHistoryDb, type InvestorsAndPagination, type BalanceDb, type MembersAndPaginationProps, type InvoicesAndPaginationProps } from '@/types/types.d'
 
 export async function addMember (e: React.FormEvent<HTMLFormElement>): Promise<void> {
   e.preventDefault()
@@ -105,7 +105,7 @@ export const getDataSorted = async (data: MembersDb[] | InvestorsDb[] | BalanceD
   return dataSorted
 }
 
-export const getMembersAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<Omit<MembersAndPaginationProps, 'search' | 'page'>> => {
+export const getMembersAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<MembersAndPaginationProps | InvoicesAndPaginationProps> => {
   const data = await getMembersByName(searchValue)
   const dataSorted = await getDataSorted(data, orderBy)
   const start = currentPage > 1 ? currentPage * PAGINATION_SLICE_NUMBER - PAGINATION_SLICE_NUMBER : 0
@@ -117,8 +117,7 @@ export const getMembersAndPages = async (searchValue: string, currentPage: numbe
   return { data: dataSliced, paginationPages, prev, next }
 }
 
-export const getInvestorsAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<Omit<InvestorsAndPagination, 'search' | 'page'>> => {
-  // const data = await getMembers()
+export const getInvestorsAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<InvestorsAndPagination> => {
   const data = await getInvestorsByName(searchValue)
   const dataSorted = await getDataSorted(data, orderBy)
   const start = currentPage > 1 ? currentPage * PAGINATION_SLICE_NUMBER - PAGINATION_SLICE_NUMBER : 0
@@ -130,8 +129,7 @@ export const getInvestorsAndPages = async (searchValue: string, currentPage: num
   return { data: dataSliced, paginationPages, prev, next }
 }
 
-export const getBalanceAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<Omit<BalanceAndPagination, 'search' | 'page'>> => {
-  // const data = await getMembers()
+export const getBalanceAndPages = async (searchValue: string, currentPage: number, orderBy: OrderTypes | string): Promise<BalanceAndPagination> => {
   const data = await getBalanceByName(searchValue)
   const dataSorted = await getDataSorted(data, orderBy)
   const start = currentPage > 1 ? currentPage * PAGINATION_SLICE_NUMBER - PAGINATION_SLICE_NUMBER : 0
