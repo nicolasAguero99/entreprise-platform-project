@@ -13,7 +13,7 @@ import SelectDate from '../../components/investors/select-date'
 // Services
 import { getInvestorsAndPages } from '@/lib/services'
 
-export default async function MembersPage ({ searchParams }: { searchParams: SearchParams }): Promise<JSX.Element> {
+export default async function InvestorsPage ({ searchParams }: { searchParams: SearchParams }): Promise<JSX.Element> {
   const { page } = searchParams
   const { search } = searchParams
   const { order } = searchParams

@@ -75,6 +75,17 @@ export interface BalanceAndPagination extends PaginationParams {
   data: BalanceDb[]
 }
 
+export interface DashboardData {
+  statePaids: Array<{ paid: boolean }>
+  investments: number[]
+  profitable: number[]
+  balance: Array<{ amount: number }>
+  balanceInvestments: Array<{ amount: number }>
+  balanceTotal: number
+  latestInvestment: number
+  latestAction: number
+}
+
 export enum ActionTypes {
   PREV_ACTION = 'prev',
   NEXT_ACTION = 'next',

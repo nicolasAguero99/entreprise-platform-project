@@ -1,3 +1,7 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+
 // Components
 import CardDataHeader from './card-data-header'
 import ChartStatusPaid from '@/components/dashboard/chart-status-paid'
@@ -9,15 +13,61 @@ import ChartBalanceInvestments from './chart-balance-investments'
 // Services
 import { getBalanceAmounts, getBalanceInvesments, getBalanceTotal, getInvestmentsByMonth, getLatestAction, getLatestInvestment, getProfitable, getStatesPaidsMembers } from '@/lib/services'
 
-export default async function Dashboard (): Promise<JSX.Element> {
-  const statePaids: Array<{ paid: boolean }> = await getStatesPaidsMembers()
-  const investments: number[] = await getInvestmentsByMonth()
-  const profitable: number[] = await getProfitable()
-  const balance: Array<{ amount: number }> = await getBalanceAmounts()
-  const balanceInvestments: Array<{ amount: number }> = await getBalanceInvesments()
-  const balanceTotal: number = await getBalanceTotal()
-  const latestInvestment: number = await getLatestInvestment()
-  const latestAction: number = await getLatestAction()
+// Types
+import { type DashboardData } from '@/types/types'
+
+export default function Dashboard (): JSX.Element {
+  const [data, setData] = useState<DashboardData>({
+    statePaids: [],
+    investments: [],
+    profitable: [],
+    balance: [],
+    balanceInvestments: [],
+    balanceTotal: 0,
+    latestInvestment: 0,
+    latestAction: 0
+  })
+
+  useEffect(() => {
+    const fetchData = async (): Promise<void> => {
+      try {
+        const statePaids = await getStatesPaidsMembers()
+        const investments = await getInvestmentsByMonth()
+        const profitable = await getProfitable()
+        const balance = await getBalanceAmounts()
+        const balanceInvestments = await getBalanceInvesments()
+        const balanceTotal = await getBalanceTotal()
+        const latestInvestment = await getLatestInvestment()
+        const latestAction = await getLatestAction()
+
+        setData({
+          statePaids,
+          investments,
+          profitable,
+          balance,
+          balanceInvestments,
+          balanceTotal,
+          latestInvestment,
+          latestAction
+        })
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    void fetchData()
+  }, [])
+
+  const {
+    statePaids,
+    investments,
+    profitable,
+    balance,
+    balanceInvestments,
+    balanceTotal,
+    latestInvestment,
+    latestAction
+  } = data
 
   return (
     <main className="w-full">
