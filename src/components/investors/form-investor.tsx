@@ -100,19 +100,24 @@ export default function FormInvestor ({ investorId = null }: { investorId?: stri
     <form onSubmit={(e) => { void handleSubmitInvestors(e) }} className='flex flex-col gap-2'>
       <label htmlFor="name" className="block text-lg font-medium">Name</label>
       <input onChange={handleChangeValues} type="text" name="name" placeholder='Type name' id="name" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={investor?.name} />
-      <label htmlFor="amountByDate" className="block text-lg font-medium">Amount By Date</label>
-      <select onChange={handleChangeValues} name="amountByDate" id="amountByDate" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={investor?.amountByDate}>
-        {
-          dateList?.map((item, index) => (
-            <option key={index} value={item.id}>{item.amount}-({item.investedIn})</option>
-          ))
-        }
-      </select>
+      {
+        investorId !== null &&
+        <>
+          <label htmlFor="amountByDate" className="block text-lg font-medium">Amount By Date</label>
+          <select onChange={handleChangeValues} name="amountByDate" id="amountByDate" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={investor?.amountByDate}>
+            {
+              dateList?.map((item, index) => (
+                <option key={index} value={item.id}>{item.amount}-({item.investedIn})</option>
+              ))
+            }
+          </select>
+        </>
+      }
       <label htmlFor="amount" className="block text-lg font-medium">Amount</label>
       <input onChange={handleChangeValues} type='number' name="amount" id="amount" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={investor.amount} />
       <label htmlFor="investedIn" className="block text-lg font-medium">Invested in</label>
       <input onChange={handleChangeValues} type="date" name="investedIn" placeholder='Type investedIn' id="investedIn" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={investor.investedIn} />
-      <button className={`w-full h-12 ${isSending === '' ? 'bg-background' : 'bg-indibackground/50'} hover:bg-background/80 text-white rounded-md text-lg font-medium mt-4`}>{isSending === '' ? textBtn : isSending}</button>
+      <button className={`w-full h-12 ${isSending === '' ? 'bg-background' : 'bg-background/50'} hover:bg-background/80 text-white rounded-md text-lg font-medium mt-4`}>{isSending === '' ? textBtn : isSending}</button>
     </form>
   )
 }

@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { Prisma } from '@prisma/client'
 
 // Lib
 import { prisma } from '@/lib/prisma'
@@ -11,10 +10,8 @@ export async function GET (): Promise<NextResponse> {
   const dataBalance: Array<{ amount: number, date: Date }> = await prisma.balance.findMany({
     select: { amount: true, date: true }
   })
-  const rawQueryInvestors = Prisma.sql`SELECT amount, investedIn AS date FROM investorsHistory`
-  const dataInvestorsHistory: Array<{ amount: number, date: Date }> = await prisma.$queryRaw(rawQueryInvestors)
-  const rawQueryMembers = Prisma.sql`SELECT salary AS amount FROM members`
-  const dataMembers: Array<{ amount: number, date: Date }> = await prisma.$queryRaw(rawQueryMembers)
+  const dataInvestorsHistory: Array<{ amount: number, date: Date }> = await prisma.$queryRaw`SELECT amount, "investedIn" as date FROM "InvestorsHistory"`
+  const dataMembers: Array<{ amount: number, date: Date }> = await prisma.$queryRaw`SELECT salary AS amount FROM "Members"`
   const allData: Array<{ amount: number, date: Date }> = [...dataBalance, ...dataInvestorsHistory, ...dataMembers]
   const allDataReduced = allData
     .filter(entry => new Date(entry.date).getUTCFullYear() === 2023)

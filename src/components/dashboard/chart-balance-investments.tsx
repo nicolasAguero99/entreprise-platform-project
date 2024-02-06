@@ -19,10 +19,8 @@ export default function ChartBalanceInvestments ({ balanceInvestments }: { balan
     { incomes: 0, expenses: 0 }
   )
 
-  const percentage = Math.abs(expenses) < incomes
-    ? ((Math.abs(expenses) / incomes) * 100).toFixed(0)
-    : ((incomes / Math.abs(expenses)) * 100).toFixed(0)
-
+  const total = incomes + Math.abs(expenses)
+  const percentage = total !== 0 ? ((Math.abs(expenses) / total) * 100).toFixed(0) : 0
   const remainingPercentage = 100 - Number(percentage)
 
   const data = {

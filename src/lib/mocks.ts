@@ -84,43 +84,43 @@ export const membersObj = [
 export const investorsObj = [
   {
     photo: 'url_foto_inversionista_1',
-    name: 'Inversionista 1'
+    name: 'Luis Capeletti'
   },
   {
     photo: 'url_foto_inversionista_2',
-    name: 'Inversionista 2'
+    name: 'Gustavo Pérez'
   },
   {
     photo: 'url_foto_inversionista_3',
-    name: 'Inversionista 3'
+    name: 'Ramón Rodríguez'
   },
   {
     photo: 'url_foto_inversionista_4',
-    name: 'Inversionista 4'
+    name: 'Pablo García'
   },
   {
     photo: 'url_foto_inversionista_5',
-    name: 'Inversionista 5'
+    name: 'Hernán Martínez'
   },
   {
     photo: 'url_foto_inversionista_6',
-    name: 'Inversionista 6'
+    name: 'Elena Ruiz'
   },
   {
     photo: 'url_foto_inversionista_7',
-    name: 'Inversionista 7'
+    name: 'Adolfo Sánchez'
   },
   {
     photo: 'url_foto_inversionista_8',
-    name: 'Inversionista 8'
+    name: 'Rosa Gómez'
   },
   {
     photo: 'url_foto_inversionista_9',
-    name: 'Inversionista 9'
+    name: 'Marta Torres'
   },
   {
     photo: 'url_foto_inversionista_10',
-    name: 'Inversionista 10'
+    name: 'Julieta Vargas'
   }
 ]
 

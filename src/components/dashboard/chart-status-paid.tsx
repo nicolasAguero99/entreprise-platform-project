@@ -17,10 +17,8 @@ export default function ChartStatusPaid ({ statePaids }: { statePaids: Array<{ p
     { paided: 0, unpaided: 0 }
   )
 
-  const percentage = Math.abs(unpaided) < paided
-    ? ((Math.abs(unpaided) / paided) * 100).toFixed(0)
-    : ((paided / Math.abs(unpaided)) * 100).toFixed(0)
-
+  const total = paided + unpaided
+  const percentage = total !== 0 ? ((unpaided / total) * 100).toFixed(0) : 0
   const remainingPercentage = 100 - Number(percentage)
 
   const data = {
