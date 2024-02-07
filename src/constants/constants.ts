@@ -57,3 +57,9 @@ export const TITLES_CARDS_HEADER = [
 export const TEXT_TABLE_DATE = ['Date', 'Invested In']
 
 export const COLORS_CHART = ['#275DAD', '#347FEE']
+
+export const TYPE_FORM_LOADING = [
+  { type: 'members', length: 4 },
+  { type: 'investors', length: 4 },
+  { type: 'balance', length: 3 }
+]

@@ -4,7 +4,10 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 // Constants
-import { API_URL, MSG_ADDING, MSG_EDITING } from '@/constants/constants'
+import { API_URL, MSG_ADDING, MSG_EDITING, TYPE_FORM_LOADING } from '@/constants/constants'
+
+// Components
+import LoadingForm from '../loading-form'
 
 // Types
 import { type BalanceDb } from '@/types/types'
@@ -14,6 +17,7 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
   const [balance, setBalance] = useState({ action: '', amount: 0, date: '' })
   const router = useRouter()
   const textBtn = balanceId === null ? 'Add' : 'Edit'
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (balanceId !== null) {
@@ -25,6 +29,7 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
           date: String(data.date).split('T')[0]
         }
         setBalance(formattedData)
+        setLoading(false)
       }
 
       void getBalance()
@@ -78,14 +83,20 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
   }
 
   return (
-    <form onSubmit={(e) => { void handleMember(e) }}>
-      <label htmlFor="name" className="block text-lg font-medium">Action</label>
-      <input onChange={handleChangeValues} type="text" name="action" placeholder='Type action' id="action" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={balance?.action} />
-      <label htmlFor="email" className="block text-lg font-medium">Amount</label>
-      <input onChange={handleChangeValues} type="number" name="amount" placeholder='Type amount' id="amount" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={balance?.amount} />
-      <label htmlFor="position" className="block text-lg font-medium">Date</label>
-      <input onChange={handleChangeValues} type="date" name="date" placeholder='Type date' id="date" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={balance?.date} />
-      <button className={`w-full h-12 ${isSending === '' ? 'bg-background' : 'bg-background/50'} hover:bg-background/80 text-white rounded-md text-lg font-medium mt-4`}>{isSending === '' ? textBtn : isSending}</button>
-    </form>
+    <>
+      {
+        loading
+          ? <LoadingForm type={TYPE_FORM_LOADING[2].type} />
+          : <form onSubmit={(e) => { void handleMember(e) }}>
+            <label htmlFor="name" className="block text-lg font-medium">Action</label>
+            <input onChange={handleChangeValues} type="text" name="action" placeholder='Type action' id="action" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={balance?.action} />
+            <label htmlFor="email" className="block text-lg font-medium">Amount</label>
+            <input onChange={handleChangeValues} type="number" name="amount" placeholder='Type amount' id="amount" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={balance?.amount} />
+            <label htmlFor="position" className="block text-lg font-medium">Date</label>
+            <input onChange={handleChangeValues} type="date" name="date" placeholder='Type date' id="date" className="w-full border-gray-300 rounded-md shadow-md py-1 px-2" value={balance?.date} />
+            <button className={`w-full h-12 ${isSending === '' ? 'bg-background' : 'bg-background/50'} hover:bg-background/80 text-white rounded-md text-lg font-medium mt-4`}>{isSending === '' ? textBtn : isSending}</button>
+          </form>
+      }
+    </>
   )
 }
