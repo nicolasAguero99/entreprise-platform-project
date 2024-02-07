@@ -16,7 +16,7 @@ export default function Sidebar (): JSX.Element {
 
   return (
     <div className='fixed max-lg:top-0 max-lg:left-0 lg:relative z-50'>
-      <button onClick={handleToggleMenu} className='fixed top-0 left-0 lg:hidden ms-8 mt-8'>
+      <button onClick={handleToggleMenu} className='fixed top-0 left-0 lg:hidden ms-8 mt-8 bg-background p-1 rounded-lg'>
         <Image src='/menu-icon.svg' alt='open menu' width={34} height={34} />
       </button>
       <aside className={`${showMenu ? 'block' : 'hidden'} z-40 w-64 h-screen transition-transform relative top-0 max-lg:left-0 lg:block`}>
