@@ -33,6 +33,8 @@ export default function FormBalance ({ balanceId = null }: { balanceId?: string 
       }
 
       void getBalance()
+    } else {
+      setLoading(false)
     }
   }, [balanceId])
 

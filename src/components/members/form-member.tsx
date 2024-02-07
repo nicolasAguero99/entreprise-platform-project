@@ -26,6 +26,8 @@ export default function FormMember ({ memberId = null }: { memberId?: string | n
       }
 
       void getMember()
+    } else {
+      setLoading(false)
     }
   }, [memberId])
 

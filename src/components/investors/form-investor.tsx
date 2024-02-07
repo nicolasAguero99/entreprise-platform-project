@@ -38,6 +38,8 @@ export default function FormInvestor ({ investorId = null }: { investorId?: stri
       }
 
       void getMember()
+    } else {
+      setLoading(false)
     }
   }, [investorId])
 

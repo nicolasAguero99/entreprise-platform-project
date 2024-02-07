@@ -6,7 +6,7 @@ export default function LoadingForm ({ type }: { type: string }): JSX.Element {
   const loadings = Array(loadingsLengths).fill(0)
 
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='w-full flex flex-col gap-2'>
       {
         loadings.map((_, index) => (
           <div key={index} className='flex flex-col gap-2'>
